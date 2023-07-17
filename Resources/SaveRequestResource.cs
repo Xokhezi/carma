@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace carma.Resources
 {
-    public class SaveVehicleResource
+    public class SaveRequestResource
     {
         public int Id { get; set; }
         public int VehicleId { get; set; }
