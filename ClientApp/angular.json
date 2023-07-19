@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "carma"
+  "defaultProject": "carma",
+  "cli": {
+    "analytics": "fd38355b-3d5c-4089-80ec-a1071878e9b9"
+  }
 }

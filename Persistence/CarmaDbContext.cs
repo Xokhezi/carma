@@ -14,5 +14,6 @@ namespace carma.Persistence
         }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

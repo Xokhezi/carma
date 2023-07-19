@@ -1,0 +1,50 @@
+<section class="">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow" style="border-radius: 1rem">
+          <div class="card-body p-5 text-center">
+            <p class="display-5 mb-5">Carma - login</p>
+
+            <div class="form-outline mb-4">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="credentials.email"
+                class="form-control form-control-lg"
+              />
+              <label class="form-label" for="typeEmailX-2">Email</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control form-control-lg"
+                [(ngModel)]="credentials.password"
+              />
+              <label class="form-label" for="password">Heslo</label>
+            </div>
+
+            <button
+              class="btn btn-primary btn-lg"
+              type="submit"
+              (click)="login()"
+            >
+              Přihlásit
+            </button>
+            <div
+              *ngIf="invalidCredintials"
+              class="alert alert-danger mt-3"
+              role="alert"
+            >
+              Údaje nesouhlasí
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

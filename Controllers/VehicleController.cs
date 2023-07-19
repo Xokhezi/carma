@@ -32,7 +32,7 @@ namespace carma.Controllers
             return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         }
         [HttpPost]
-        public async Task<IActionResult> AddApp([FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Model is Invalid");
