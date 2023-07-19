@@ -37,6 +37,45 @@
               >Fetch data</a
             >
           </li>
+          <div *ngIf="loginService.isLoggedIn()" class="d-flex">
+            <ul class="navbar-nav flex-grow">
+              <li
+                class="nav-item"
+                style="border-right: solid 1px rgb(186, 205, 255)"
+              >
+                <a *ngIf="user" class="nav-link text-dark">{{ user.Email }}</a>
+              </li>
+  
+              <li
+                class="nav-item"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+                  >Účtování</a
+                >
+              </li>
+              <li class="nav-item" [routerLinkActive]="['link-active']">
+                <a class="nav-link text-dark" [routerLink]="['/data']">Data</a>
+              </li>
+            </ul>
+            <button mat-button [matMenuTriggerFor]="menu">
+              <mat-icon>group</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>Profil</button>
+              <button mat-menu-item (click)="logout()">Odhlásit</button>
+            </mat-menu>
+          </div>
+          <div *ngIf="!loginService.isLoggedIn()">
+            <button mat-button [routerLink]="['/login']">
+              Přihlásit <mat-icon>send</mat-icon>
+            </button>
+          </div>
+        </div>
         </ul>
       </div>
     </div>
