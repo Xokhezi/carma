@@ -14,9 +14,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RequestFormComponent } from './request-form/request-form.component';
 
 @NgModule({
-  declarations: [AppComponent, NavMenuComponent, HomeComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    HomeComponent,
+    LoginComponent,
+    RequestFormComponent,
+  ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
@@ -28,6 +35,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
+      { path: 'request-form/:id', component: RequestFormComponent },
     ]),
     BrowserAnimationsModule,
   ],

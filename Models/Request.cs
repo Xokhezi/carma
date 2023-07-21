@@ -14,5 +14,6 @@ namespace carma.Models
         public int TotalKm { get; set; }
         public string TravelFrom { get; set; }
         public string TravelTo { get; set; }
+        public string Status { get; set; }
     }
 }

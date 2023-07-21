@@ -1,0 +1,46 @@
+<section>
+  <h1>Nová žádanka</h1>
+  {{ request | json }}
+  <div class="form-group">
+    <label class="form-label" for="vehicleId">Vozidlo</label>
+    <select
+      class="form-control form-control-lg"
+      name="vehicleId"
+      id="vehicleId"
+      [(ngModel)]="request.vehicleId"
+    >
+      <option value="1">Cadet - Free</option>
+    </select>
+  </div>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="totalKm">Vzdálenost</label>
+    <input
+      type="text"
+      id="totalKm"
+      name="totalKm"
+      [(ngModel)]="request.totalKm"
+      class="form-control form-control-lg"
+    />
+  </div>
+
+  <div class="form-outline mb-4">
+    <label class="form-label" for="travelFrom">Začátek:</label>
+    <input
+      type="text"
+      id="travelFrom"
+      name="travelFrom"
+      class="form-control form-control-lg"
+      [(ngModel)]="request.travelFrom"
+    />
+  </div>
+  <div class="form-outline mb-4">
+    <label class="form-label" for="travelTo">Cíl:</label>
+    <input
+      type="text"
+      id="travelTo"
+      name="travelTo"
+      class="form-control form-control-lg"
+      [(ngModel)]="request.travelTo"
+    />
+  </div>
+</section>
