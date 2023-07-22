@@ -1,5 +1,6 @@
 <section>
   <h1>Nová žádanka</h1>
+  {{ request | json }}
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
   <div class="form-group">
     <label class="form-label" for="vehicleId">Vozidlo:</label>

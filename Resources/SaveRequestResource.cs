@@ -12,5 +12,6 @@ namespace carma.Resources
         public string TravelFrom { get; set; }
         public string TravelTo { get; set; }
         public string Status { get; set; }
+        public string Email { get; set; }
     }
 }

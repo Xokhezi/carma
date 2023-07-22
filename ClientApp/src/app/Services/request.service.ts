@@ -9,6 +9,7 @@ export interface Request {
   travelFrom: string;
   travelTo: string;
   status: string;
+  email: string;
 }
 export interface SaveRequest {
   vehicleId: number;
@@ -17,6 +18,7 @@ export interface SaveRequest {
   travelFrom: string;
   travelTo: string;
   status: string;
+  email: string;
 }
 @Injectable({
   providedIn: 'root',

@@ -2,6 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+export interface User {
+  Email: string;
+  Role: string;
+}
 @Injectable({
   providedIn: 'root',
 })
