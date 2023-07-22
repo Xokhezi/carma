@@ -7,11 +7,10 @@ namespace carma.Resources
 {
     public class SaveRequestResource
     {
-        public int Id { get; set; }
         public int VehicleId { get; set; }
-        public DateTime DateOfRequest { get; set; }
         public int TotalKm { get; set; }
         public string TravelFrom { get; set; }
         public string TravelTo { get; set; }
+        public string Status { get; set; }
     }
 }

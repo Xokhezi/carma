@@ -24,21 +24,18 @@ export interface SaveRequest {
 export class RequestService {
   constructor(private apiClient: ApiClientService) {}
   getRequests() {
-    return this.apiClient.getAll<Request[]>('/api/request');
+    return this.apiClient.getAll<Request[]>('request');
   }
   getSingleRequest(id: number) {
-    return this.apiClient.getSingle<Request>('/api/request' + '/' + id);
+    return this.apiClient.getSingle<Request>('request' + '/' + id);
   }
   createRequest(request: SaveRequest) {
-    return this.apiClient.create<SaveRequest>(request, '/api/request');
+    return this.apiClient.create<SaveRequest>(request, 'request');
   }
   updateRequest(request: SaveRequest, id: number) {
-    return this.apiClient.update<SaveRequest>(
-      request,
-      '/api/request' + '/' + id
-    );
+    return this.apiClient.update<SaveRequest>(request, 'request' + '/' + id);
   }
   deleteRequest(id: Number) {
-    return this.apiClient.delete('/api/request' + '/' + id);
+    return this.apiClient.delete('request' + '/' + id);
   }
 }

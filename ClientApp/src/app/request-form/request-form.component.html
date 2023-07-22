@@ -1,21 +1,23 @@
 <section>
   <h1>Nová žádanka</h1>
-  {{ request | json }}
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
   <div class="form-group">
-    <label class="form-label" for="vehicleId">Vozidlo</label>
+    <label class="form-label" for="vehicleId">Vozidlo:</label>
     <select
       class="form-control form-control-lg"
       name="vehicleId"
       id="vehicleId"
       [(ngModel)]="request.vehicleId"
     >
-      <option value="1">Cadet - Free</option>
+      <option *ngFor="let v of vehicles" value="{{ v.id }}">
+        {{ v.plate }} {{ v.type }}
+      </option>
     </select>
   </div>
   <div class="form-outline mb-4">
-    <label class="form-label" for="totalKm">Vzdálenost</label>
+    <label class="form-label" for="totalKm">Vzdálenost:</label>
     <input
-      type="text"
+      type="number"
       id="totalKm"
       name="totalKm"
       [(ngModel)]="request.totalKm"
@@ -43,4 +45,5 @@
       [(ngModel)]="request.travelTo"
     />
   </div>
+  <button (click)="createRequest()" class="btn btn-primary">Zažádat</button>
 </section>
