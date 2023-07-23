@@ -43,5 +43,18 @@ namespace carma.Controllers
             await context.SaveChangesAsync();
             return Ok(request);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRequest([FromBody] SaveRequestResource requestResource, int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Model is Invalid");
+
+            var requestFromDb = context.Requests.Find(id);
+            if (requestFromDb == null)
+                return NotFound();
+            mapper.Map<SaveRequestResource, Request>(requestResource, requestFromDb);
+            await context.SaveChangesAsync();
+            return Ok(requestFromDb);
+        }
     }
 }
