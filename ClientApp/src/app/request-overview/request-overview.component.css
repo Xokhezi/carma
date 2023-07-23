@@ -1,0 +1,12 @@
+section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.loader {
+  text-align: center;
+}
+.btn {
+  padding-inline: 7px;
+  margin-inline: 2px;
+}

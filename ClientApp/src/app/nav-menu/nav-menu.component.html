@@ -37,12 +37,16 @@
                 <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
               </li>
               <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/request-form/0']"
-                  >Žádanka</a
+                <a
+                  class="nav-link text-dark"
+                  [routerLink]="['/requests-overview']"
+                  >Přehled</a
                 >
               </li>
               <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/data']">Data</a>
+                <a class="nav-link text-dark" [routerLink]="['/request-form/0']"
+                  >Žádanka</a
+                >
               </li>
             </ul>
             <button mat-button [matMenuTriggerFor]="menu">

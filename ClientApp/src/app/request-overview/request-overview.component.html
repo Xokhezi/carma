@@ -1,0 +1,38 @@
+<section>
+  <h1>Přehled žádanek:</h1>
+  <div *ngIf="error" class="alert-danger alert">{{ error }}</div>
+  <div *ngIf="loading" class="loader"><h1>Načítám data</h1></div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">SPZ</th>
+        <th scope="col">Typ</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of requests">
+        <th scope="col">{{ r.email }}</th>
+        <td scope="col">{{ r.vehicle.plate }}</td>
+        <td scope="col">{{ r.vehicle.type }}</td>
+        <td scope="col">{{ r.status }}</td>
+        <td scope="col ">
+          <button
+            class="btn btn-primary"
+            (click)="updateRequest(r, r.id, 'Approved')"
+          >
+            <i class="bi bi-check-lg"></i>
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="updateRequest(r, r.id, 'Denied')"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RequestFormComponent } from './request-form/request-form.component';
+import { RequestOverviewComponent } from './request-overview/request-overview.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
     HomeComponent,
     LoginComponent,
     RequestFormComponent,
+    RequestOverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +37,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
+      { path: 'requests-overview', component: RequestOverviewComponent },
       { path: 'request-form/:id', component: RequestFormComponent },
     ]),
     BrowserAnimationsModule,
