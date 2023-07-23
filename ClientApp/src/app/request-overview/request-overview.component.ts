@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { RequestService, Request } from '../Services/request.service';
+import {
+  RequestService,
+  Request,
+  SaveRequest,
+} from '../Services/request.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-request-overview',
@@ -8,17 +13,33 @@ import { RequestService, Request } from '../Services/request.service';
 })
 export class RequestOverviewComponent {
   requests: Request[] = [];
+  departmentId = 0;
   loading = true;
   error = '';
-  constructor(private requestService: RequestService) {}
+  constructor(
+    private requestService: RequestService,
+    private active: ActivatedRoute
+  ) {}
   ngOnInit(): void {
     this.getRequests();
+    this.active.paramMap.subscribe((params: any) => {
+      this.departmentId = params.get('departmentId?');
+    });
   }
-  updateRequest(request: any, id: number, action: string) {
+  updateRequest(request: Request, id: number, action: string) {
+    let saveRequest: SaveRequest = {
+      vehicleId: request.vehicle.id,
+      email: request.email,
+      status: '',
+      dateOfRequest: request.dateOfRequest,
+      travelFrom: request.travelFrom,
+      travelTo: request.travelTo,
+      totalKm: request.totalKm,
+    };
     action === 'Approved'
-      ? (request.status = 'Approved')
-      : (request.status = 'Denied');
-    this.requestService.updateRequest(request, id).subscribe({
+      ? (saveRequest.status = 'Approved')
+      : (saveRequest.status = 'Denied');
+    this.requestService.updateRequest(saveRequest, id).subscribe({
       next: (response: any) => {
         this.getRequests();
       },

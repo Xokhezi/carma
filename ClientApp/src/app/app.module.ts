@@ -37,7 +37,10 @@ import { RequestOverviewComponent } from './request-overview/request-overview.co
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
-      { path: 'requests-overview', component: RequestOverviewComponent },
+      {
+        path: 'requests-overview/:departmentId',
+        component: RequestOverviewComponent,
+      },
       { path: 'request-form/:id', component: RequestFormComponent },
     ]),
     BrowserAnimationsModule,
