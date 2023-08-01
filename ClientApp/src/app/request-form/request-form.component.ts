@@ -35,9 +35,11 @@ export class RequestFormComponent {
         this.error = err.error;
       },
     });
+    console.log(this.user);
   }
   createRequest() {
     this.request.status = 'New';
+    this.request.departmentId = parseInt(this.user.DepartmentId);
     this.requestService.createRequest(this.request).subscribe({
       next: (response) => {
         console.log(response);

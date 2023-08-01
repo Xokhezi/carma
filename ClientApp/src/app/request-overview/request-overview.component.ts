@@ -5,6 +5,7 @@ import {
   SaveRequest,
 } from '../Services/request.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from '../Services/login.service';
 
 @Component({
   selector: 'app-request-overview',
@@ -16,9 +17,11 @@ export class RequestOverviewComponent {
   departmentId = 0;
   loading = true;
   error = '';
+  user = this.login.getcurrentUser();
   constructor(
     private requestService: RequestService,
-    private active: ActivatedRoute
+    private active: ActivatedRoute,
+    private login: LoginService
   ) {}
   ngOnInit(): void {
     this.getRequests();
@@ -28,13 +31,9 @@ export class RequestOverviewComponent {
   }
   updateRequest(request: Request, id: number, action: string) {
     let saveRequest: SaveRequest = {
-      vehicleId: request.vehicle.id,
-      email: request.email,
+      ...request,
       status: '',
-      dateOfRequest: request.dateOfRequest,
-      travelFrom: request.travelFrom,
-      travelTo: request.travelTo,
-      totalKm: request.totalKm,
+      vehicleId: request.vehicle.id,
     };
     action === 'Approved'
       ? (saveRequest.status = 'Approved')
@@ -55,7 +54,9 @@ export class RequestOverviewComponent {
   getRequests() {
     this.requestService.getRequests().subscribe({
       next: (response: any) => {
-        this.requests = response;
+        this.requests = response.filter(
+          (r: any) => r.departmentId == this.user.DepartmentId
+        );
         this.loading = true;
       },
       error: (err) => {

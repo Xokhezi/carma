@@ -5,6 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export interface User {
   Email: string;
   Role: string;
+  DepartmentId: string;
 }
 @Injectable({
   providedIn: 'root',
