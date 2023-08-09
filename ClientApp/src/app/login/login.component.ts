@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.credentials = {};
-    this.loginService.validateUser().subscribe((r: any) => {});
+    this.loginService.validateUser()?.subscribe((r: any) => {});
   }
 
   constructor(private loginService: LoginService, private route: Router) {}

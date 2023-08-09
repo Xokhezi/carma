@@ -28,6 +28,14 @@ export class RequestOverviewComponent {
     this.active.paramMap.subscribe((params: any) => {
       this.departmentId = params.get('departmentId?');
     });
+    this.login.validateUser()?.subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
   updateRequest(request: Request, id: number, action: string) {
     let saveRequest: SaveRequest = {

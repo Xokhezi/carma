@@ -7,6 +7,10 @@ export interface User {
   Role: string;
   DepartmentId: string;
 }
+interface UserValidation {
+  email: string;
+  appName: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -36,26 +40,16 @@ export class LoginService {
     return jwtHelper.decodeToken(token);
   }
   validateUser() {
-    let user = this.getcurrentUser();
-    let userForValidation;
-    user
-      ? (userForValidation = { email: user.Email })
-      : (userForValidation = { email: '' });
-    return this.http.post(
-      'https://sw02660.global.hvwan.net/telsorcore/api/validation',
-      userForValidation
-    );
-  }
-  validateAdmin() {
-    let user = this.getcurrentUser();
-    let userForValidation;
-    user
-      ? (userForValidation = { email: user.Email })
-      : (userForValidation = { email: '' });
-    return this.http.post(
-      'https://sw02660.global.hvwan.net/telsorcore/api/validation/admin',
-      userForValidation
-    );
+    const email = this.getcurrentUser().Email;
+    const appName = 'carma';
+    const url =
+      'https://sw02660.global.hvwan.net/validator/api/accessvalidation?email=' +
+      encodeURIComponent(email) +
+      '&appName=' +
+      appName;
+
+    if (!email) return null;
+    return this.http.get(url);
   }
   getValidation() {
     let headers = new HttpHeaders();
