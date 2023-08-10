@@ -58,38 +58,27 @@ export class RequestOverviewComponent {
     });
   }
   getRequests() {
-    if (this.user && this.user.Role === 'manager') {
-      this.requestService.getRequests().subscribe({
-        next: (response: Request[]) => {
-          this.requests = response.filter(
+    this.requestService.getRequests().subscribe({
+      next: (response: Request[]) => {
+        this.requests = response;
+        this.loading = true;
+      },
+      error: (err) => {
+        this.error = err.error;
+        this.loading = false;
+      },
+      complete: () => {
+        if (this.user && this.user.Role === 'manager') {
+          this.requests = this.requests.filter(
             (r: Request) => r.departmentId.toString() == this.user!.DepartmentId
           );
-          this.loading = true;
-        },
-        error: (err) => {
-          this.error = err.error;
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      });
-    } else if (this.user && this.user.Role === 'assistant') {
-      this.requestService.getRequests().subscribe({
-        next: (response: Request[]) => {
-          this.requests = response.filter(
+        } else if (this.user && this.user.Role === 'assistant') {
+          this.requests = this.requests.filter(
             (r: Request) => r.status == 'Approved'
           );
-          this.loading = true;
-        },
-        error: (err) => {
-          this.error = err.error;
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      });
-    }
+        }
+        this.loading = false;
+      },
+    });
   }
 }
