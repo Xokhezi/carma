@@ -27,22 +27,16 @@
         <td scope="col " *ngIf="user.Role === 'manager'">
           <button
             class="btn btn-primary"
-            (click)="updateRequest(r, r.id, 'Approved')"
+            (click)="updateRequest(r, 'Approved')"
           >
             <i class="bi bi-check-lg"></i>
           </button>
-          <button
-            class="btn btn-primary"
-            (click)="updateRequest(r, r.id, 'Denied')"
-          >
+          <button class="btn btn-primary" (click)="updateRequest(r, 'Denied')">
             <i class="bi bi-x-lg"></i>
           </button>
         </td>
         <td scope="col " *ngIf="user.Role === 'assistant'">
-          <button
-            class="btn btn-primary"
-            (click)="updateRequest(r, r.id, 'Out')"
-          >
+          <button class="btn btn-primary" (click)="updateRequest(r, 'Out')">
             Vydat
           </button>
         </td>

@@ -37,14 +37,15 @@ export class RequestOverviewComponent {
       },
     });
   }
-  updateRequest(request: Request, id: number, action: string) {
+  //update request regarding request and action
+  updateRequest(request: Request, action: string) {
     let saveRequest: SaveRequest = {
       ...request,
       status: '',
       vehicleId: request.vehicle.id,
     };
     saveRequest.status = action;
-    this.requestService.updateRequest(saveRequest, id).subscribe({
+    this.requestService.updateRequest(saveRequest, request.id).subscribe({
       next: (response: any) => {
         this.getRequests();
       },
@@ -57,6 +58,7 @@ export class RequestOverviewComponent {
       },
     });
   }
+  //get request and filter them ragarding logged user
   getRequests() {
     this.requestService.getRequests().subscribe({
       next: (response: Request[]) => {

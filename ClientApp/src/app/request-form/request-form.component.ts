@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService, SaveRequest } from '../Services/request.service';
 import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { LoginService, User } from '../Services/login.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-request-form',
@@ -13,7 +13,7 @@ export class RequestFormComponent {
   error = '';
   id = 0;
   vehicles: Vehicle[] = [];
-  user: User = this.loginService.getcurrentUser();
+  user: User = this.loginService.getcurrentUser() || ({} as User);
   request: SaveRequest = {} as SaveRequest;
   constructor(
     private active: ActivatedRoute,
