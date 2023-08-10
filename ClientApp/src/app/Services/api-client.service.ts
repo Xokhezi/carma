@@ -10,7 +10,7 @@ export class ApiClientService {
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
   getAll<T>(url: string) {
-    return this.http.get(this.url + url, this.loginService.getValidation());
+    return this.http.get<T>(this.url + url, this.loginService.getValidation());
   }
   getSingle<T>(url: string) {
     return this.http.get(this.url + url, this.loginService.getValidation());

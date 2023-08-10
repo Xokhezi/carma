@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Vehicle } from './vehicle.service';
 import { ApiClientService } from './api-client.service';
+import { Observable } from 'rxjs';
 export interface Request {
   id: number;
   vehicle: Vehicle;
@@ -27,7 +28,7 @@ export interface SaveRequest {
 })
 export class RequestService {
   constructor(private apiClient: ApiClientService) {}
-  getRequests() {
+  getRequests(): Observable<Request[]> {
     return this.apiClient.getAll<Request[]>('request');
   }
   getSingleRequest(id: number) {

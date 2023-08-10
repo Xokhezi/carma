@@ -4,8 +4,8 @@ import {
   Request,
   SaveRequest,
 } from '../Services/request.service';
-import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../Services/login.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-request-overview',
@@ -17,7 +17,7 @@ export class RequestOverviewComponent {
   departmentId = 0;
   loading = true;
   error = '';
-  user = this.login.getcurrentUser();
+  user = this.login.getcurrentUser() || null;
   constructor(
     private requestService: RequestService,
     private active: ActivatedRoute,
@@ -32,7 +32,7 @@ export class RequestOverviewComponent {
       next: (response: any) => {
         console.log(response);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.log(err);
       },
     });
@@ -43,9 +43,7 @@ export class RequestOverviewComponent {
       status: '',
       vehicleId: request.vehicle.id,
     };
-    action === 'Approved'
-      ? (saveRequest.status = 'Approved')
-      : (saveRequest.status = 'Denied');
+    saveRequest.status = action;
     this.requestService.updateRequest(saveRequest, id).subscribe({
       next: (response: any) => {
         this.getRequests();
@@ -60,20 +58,38 @@ export class RequestOverviewComponent {
     });
   }
   getRequests() {
-    this.requestService.getRequests().subscribe({
-      next: (response: any) => {
-        this.requests = response.filter(
-          (r: any) => r.departmentId == this.user.DepartmentId
-        );
-        this.loading = true;
-      },
-      error: (err) => {
-        this.error = err.error;
-        this.loading = false;
-      },
-      complete: () => {
-        this.loading = false;
-      },
-    });
+    if (this.user && this.user.Role === 'manager') {
+      this.requestService.getRequests().subscribe({
+        next: (response: Request[]) => {
+          this.requests = response.filter(
+            (r: Request) => r.departmentId.toString() == this.user!.DepartmentId
+          );
+          this.loading = true;
+        },
+        error: (err) => {
+          this.error = err.error;
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
+    } else if (this.user && this.user.Role === 'assistant') {
+      this.requestService.getRequests().subscribe({
+        next: (response: Request[]) => {
+          this.requests = response.filter(
+            (r: Request) => r.status == 'Approved'
+          );
+          this.loading = true;
+        },
+        error: (err) => {
+          this.error = err.error;
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
+    }
   }
 }

@@ -37,10 +37,10 @@ export class LoginService {
     let token = localStorage.getItem('token');
     if (!token) return null;
     let jwtHelper = new JwtHelperService();
-    return jwtHelper.decodeToken(token);
+    return jwtHelper.decodeToken(token) as User;
   }
   validateUser() {
-    const email = this.getcurrentUser().Email;
+    const email = this.getcurrentUser()!.Email;
     const appName = 'carma';
     const url =
       'https://sw02660.global.hvwan.net/validator/api/accessvalidation?email=' +

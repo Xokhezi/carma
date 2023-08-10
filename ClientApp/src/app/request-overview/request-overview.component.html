@@ -24,7 +24,7 @@
         <td scope="col">{{ r.status }}</td>
         <td scope="col">{{ r.travelFrom }}</td>
         <td scope="col">{{ r.travelTo }}</td>
-        <td scope="col ">
+        <td scope="col " *ngIf="user.Role === 'manager'">
           <button
             class="btn btn-primary"
             (click)="updateRequest(r, r.id, 'Approved')"
@@ -36,6 +36,14 @@
             (click)="updateRequest(r, r.id, 'Denied')"
           >
             <i class="bi bi-x-lg"></i>
+          </button>
+        </td>
+        <td scope="col " *ngIf="user.Role === 'assistant'">
+          <button
+            class="btn btn-primary"
+            (click)="updateRequest(r, r.id, 'Out')"
+          >
+            Vydat
           </button>
         </td>
       </tr>
