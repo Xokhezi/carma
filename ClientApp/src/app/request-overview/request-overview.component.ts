@@ -25,17 +25,15 @@ export class RequestOverviewComponent {
   ) {}
   ngOnInit(): void {
     this.getRequests();
-    this.active.paramMap.subscribe((params: any) => {
-      this.departmentId = params.get('departmentId?');
-    });
     this.login.validateUser()?.subscribe({
       next: (response: any) => {
-        console.log(response);
+        this.user!.Role = response.role;
       },
       error: (err: any) => {
         console.log(err);
       },
     });
+    this.getRequests();
   }
   //update request regarding request and action
   updateRequest(request: Request, action: string) {
