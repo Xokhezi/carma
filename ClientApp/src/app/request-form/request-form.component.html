@@ -1,50 +1,50 @@
 <section>
-  <h1>Nová žádanka</h1>
-  {{ request | json }}
-  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-  <div class="form-group">
-    <label class="form-label" for="vehicleId">Vozidlo:</label>
-    <select
-      class="form-control form-control-lg"
-      name="vehicleId"
-      id="vehicleId"
-      [(ngModel)]="request.vehicleId"
-    >
-      <option *ngFor="let v of vehicles" value="{{ v.id }}">
-        {{ v.plate }} {{ v.type }}
-      </option>
-    </select>
+  <div class="form-section">
+    <h1>Nová žádanka</h1>
+    <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+    <div class="form-group">
+      <label class="form-label" for="vehicleId">Vozidlo:</label>
+      <select
+        class="form-control form-control-lg"
+        name="vehicleId"
+        id="vehicleId"
+        [(ngModel)]="request.vehicleId"
+      >
+        <option *ngFor="let v of vehicles" value="{{ v.id }}">
+          {{ v.plate }} {{ v.type }}
+        </option>
+      </select>
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="totalKm">Vzdálenost:</label>
+      <input
+        type="number"
+        id="totalKm"
+        name="totalKm"
+        [(ngModel)]="request.totalKm"
+        class="form-control form-control-lg"
+      />
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="travelFrom">Začátek:</label>
+      <input
+        type="text"
+        id="travelFrom"
+        name="travelFrom"
+        class="form-control form-control-lg"
+        [(ngModel)]="request.travelFrom"
+      />
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="travelTo">Cíl:</label>
+      <input
+        type="text"
+        id="travelTo"
+        name="travelTo"
+        class="form-control form-control-lg"
+        [(ngModel)]="request.travelTo"
+      />
+    </div>
+    <button (click)="createRequest()" class="btn btn-primary">Zažádat</button>
   </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="totalKm">Vzdálenost:</label>
-    <input
-      type="number"
-      id="totalKm"
-      name="totalKm"
-      [(ngModel)]="request.totalKm"
-      class="form-control form-control-lg"
-    />
-  </div>
-
-  <div class="form-outline mb-4">
-    <label class="form-label" for="travelFrom">Začátek:</label>
-    <input
-      type="text"
-      id="travelFrom"
-      name="travelFrom"
-      class="form-control form-control-lg"
-      [(ngModel)]="request.travelFrom"
-    />
-  </div>
-  <div class="form-outline mb-4">
-    <label class="form-label" for="travelTo">Cíl:</label>
-    <input
-      type="text"
-      id="travelTo"
-      name="travelTo"
-      class="form-control form-control-lg"
-      [(ngModel)]="request.travelTo"
-    />
-  </div>
-  <button (click)="createRequest()" class="btn btn-primary">Zažádat</button>
 </section>

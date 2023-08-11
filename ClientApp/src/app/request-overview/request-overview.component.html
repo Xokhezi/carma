@@ -1,5 +1,15 @@
 <section>
   <h1>Přehled žádanek:</h1>
+  <select
+    class="form-control"
+    [(ngModel)]="assistantView"
+    name="view"
+    id="view"
+    (change)="getRequests()"
+  >
+    <option value="Approved" selected>K vydání</option>
+    <option value="Out">Vydané</option>
+  </select>
   <div *ngIf="error" class="alert-danger alert">{{ error }}</div>
   <div *ngIf="loading" class="loader"><h1>Načítám data</h1></div>
   <table *ngIf="!loading" class="table">
@@ -24,7 +34,7 @@
         <td scope="col">{{ r.status }}</td>
         <td scope="col">{{ r.travelFrom }}</td>
         <td scope="col">{{ r.travelTo }}</td>
-        <td scope="col " *ngIf="user.Role === 'manager'">
+        <td scope="col " *ngIf="user?.Role === 'manager'">
           <button
             class="btn btn-primary"
             (click)="updateRequest(r, 'Approved')"
@@ -35,9 +45,23 @@
             <i class="bi bi-x-lg"></i>
           </button>
         </td>
-        <td scope="col " *ngIf="user.Role === 'assistant'">
+        <td
+          scope="col "
+          *ngIf="user?.Role === 'assistant' && assistantView === 'Approved'"
+        >
           <button class="btn btn-primary" (click)="updateRequest(r, 'Out')">
             Vydat
+          </button>
+        </td>
+        <td
+          scope="col "
+          *ngIf="user?.Role === 'assistant' && assistantView === 'Out'"
+        >
+          <button
+            class="btn btn-primary"
+            (click)="updateRequest(r, 'Returned')"
+          >
+            Přijmout
           </button>
         </td>
       </tr>

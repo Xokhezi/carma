@@ -17,6 +17,7 @@ export class RequestOverviewComponent {
   departmentId = 0;
   loading = true;
   error = '';
+  assistantView = 'Approved' || 'Out'; //for assistant view switch
   user = this.login.getcurrentUser() || null;
   constructor(
     private requestService: RequestService,
@@ -24,16 +25,15 @@ export class RequestOverviewComponent {
     private login: LoginService
   ) {}
   ngOnInit(): void {
-    this.getRequests();
     this.login.validateUser()?.subscribe({
       next: (response: any) => {
         this.user!.Role = response.role;
+        this.getRequests();
       },
       error: (err: any) => {
         console.log(err);
       },
     });
-    this.getRequests();
   }
   //update request regarding request and action
   updateRequest(request: Request, action: string) {
@@ -70,11 +70,13 @@ export class RequestOverviewComponent {
       complete: () => {
         if (this.user && this.user.Role === 'manager') {
           this.requests = this.requests.filter(
-            (r: Request) => r.departmentId.toString() == this.user!.DepartmentId
+            (r: Request) =>
+              r.departmentId.toString() == this.user!.DepartmentId &&
+              r.status == 'New'
           );
         } else if (this.user && this.user.Role === 'assistant') {
           this.requests = this.requests.filter(
-            (r: Request) => r.status == 'Approved'
+            (r: Request) => r.status == this.assistantView
           );
         }
         this.loading = false;
