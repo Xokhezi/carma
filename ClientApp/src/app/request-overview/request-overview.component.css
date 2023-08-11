@@ -3,6 +3,9 @@ section {
   display: flex;
   flex-direction: column;
 }
+tr {
+  cursor: pointer;
+}
 .loader {
   text-align: center;
 }

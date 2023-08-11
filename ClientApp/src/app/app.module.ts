@@ -16,6 +16,8 @@ import { RequestOverviewComponent } from './request-overview/request-overview.co
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { RouterModule } from '@angular/router';
     LoginComponent,
     RequestFormComponent,
     RequestOverviewComponent,
+    AdditionalFormRequestComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +35,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     MatMenuModule,
     MatButtonModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
     MatIconModule,
     RouterModule.forRoot([

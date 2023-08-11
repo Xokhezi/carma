@@ -1,3 +1,4 @@
+import { AdditionalFormRequestComponent } from './../additional-form-request/additional-form-request.component';
 import { Component } from '@angular/core';
 import {
   RequestService,
@@ -6,6 +7,8 @@ import {
 } from '../Services/request.service';
 import { LoginService } from '../Services/login.service';
 import { ActivatedRoute } from '@angular/router';
+import { User } from '@auth0/auth0-angular';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-request-overview',
@@ -22,17 +25,27 @@ export class RequestOverviewComponent {
   constructor(
     private requestService: RequestService,
     private active: ActivatedRoute,
-    private login: LoginService
+    private login: LoginService,
+    public dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.login.validateUser()?.subscribe({
-      next: (response: any) => {
+      next: (response: User) => {
         this.user!.Role = response.role;
         this.getRequests();
       },
       error: (err: any) => {
         console.log(err);
       },
+    });
+  }
+  openDialog(request: Request): void {
+    const dialogRef = this.dialog.open(AdditionalFormRequestComponent, {
+      data: request,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
     });
   }
   //update request regarding request and action
