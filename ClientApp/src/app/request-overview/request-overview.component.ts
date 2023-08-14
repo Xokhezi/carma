@@ -18,16 +18,19 @@ import { MatDialog } from '@angular/material/dialog';
 export class RequestOverviewComponent {
   requests: Request[] = [];
   departmentId = 0;
+  notificationStatus: any;
   loading = true;
   error = '';
   assistantView = 'Approved' || 'Out'; //for assistant view switch
   user = this.login.getcurrentUser() || null;
+
   constructor(
     private requestService: RequestService,
     private active: ActivatedRoute,
     private login: LoginService,
     public dialog: MatDialog
   ) {}
+
   ngOnInit(): void {
     this.login.validateUser()?.subscribe({
       next: (response: User) => {
@@ -42,6 +45,16 @@ export class RequestOverviewComponent {
   openDialog(request: Request): void {
     const dialogRef = this.dialog.open(AdditionalFormRequestComponent, {
       data: request,
+    });
+
+    dialogRef.componentInstance.requestUpdated.subscribe((updateSuccess) => {
+      console.log('Update success:', updateSuccess);
+      updateSuccess
+        ? (this.notificationStatus = 'success')
+        : (this.notificationStatus = 'error');
+      setInterval(() => {
+        this.notificationStatus = null;
+      }, 2000);
     });
 
     dialogRef.afterClosed().subscribe((result) => {

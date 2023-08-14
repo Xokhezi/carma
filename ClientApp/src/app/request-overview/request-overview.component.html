@@ -1,4 +1,5 @@
 <section>
+  <notification *ngIf="notificationStatus"></notification>
   <h1>Přehled žádanek:</h1>
   <select
     class="form-control"
@@ -22,6 +23,7 @@
         <th scope="col">Status</th>
         <th scope="col">Z</th>
         <th scope="col">Do</th>
+        <th scope="col">Km</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -34,6 +36,7 @@
         <td scope="col">{{ r.status }}</td>
         <td scope="col">{{ r.travelFrom }}</td>
         <td scope="col">{{ r.travelTo }}</td>
+        <td scope="col">{{ r.totalKm }}</td>
         <td scope="col " *ngIf="user?.Role === 'manager'">
           <button
             class="btn btn-primary"

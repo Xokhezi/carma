@@ -16,12 +16,12 @@
       </select>
     </div>
     <div class="form-outline mb-4">
-      <label class="form-label" for="totalKm">Vzdálenost:</label>
+      <label class="form-label" for="totalKm">Datum:</label>
       <input
-        type="number"
-        id="totalKm"
-        name="totalKm"
-        [(ngModel)]="request.totalKm"
+        type="date"
+        id="dateOfRequest"
+        name="dateOfRequest"
+        [(ngModel)]="request.dateOfRequest"
         class="form-control form-control-lg"
       />
     </div>

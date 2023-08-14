@@ -39,6 +39,7 @@ export class RequestFormComponent {
   }
   createRequest() {
     this.request.status = 'New';
+    this.request.totalKm = 0;
     this.request.departmentId = parseInt(this.user.DepartmentId);
     this.requestService.createRequest(this.request).subscribe({
       next: (response) => {

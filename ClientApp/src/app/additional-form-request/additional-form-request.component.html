@@ -1,1 +1,12 @@
-<p>additional-form-request works!</p>
+<section>
+  <div class="form-section">
+    <label for="" class="form-label">Celkové Km:</label>
+    <input
+      type="number"
+      class="form-control"
+      name="totalKm"
+      [(ngModel)]="totalKm"
+    />
+    <button class="btn btn-primary" (click)="updateRequest()">Započítat</button>
+  </div>
+</section>

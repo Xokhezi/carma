@@ -18,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AdditionalFormRequestComponent } from './additional-form-request/additi
     RequestFormComponent,
     RequestOverviewComponent,
     AdditionalFormRequestComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
