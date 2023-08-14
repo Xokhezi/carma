@@ -19,6 +19,7 @@ export class RequestOverviewComponent {
   requests: Request[] = [];
   departmentId = 0;
   notificationStatus: any;
+  notificationTimeout: any;
   loading = true;
   error = '';
   assistantView = 'Approved' || 'Out'; //for assistant view switch
@@ -51,7 +52,8 @@ export class RequestOverviewComponent {
       updateSuccess
         ? (this.notificationStatus = 'success')
         : (this.notificationStatus = 'error');
-      setInterval(() => {
+      clearTimeout(this.notificationTimeout);
+      this.notificationTimeout = setInterval(() => {
         this.notificationStatus = null;
       }, 2000);
     });

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 export interface Request {
   id: number;
   vehicle: Vehicle;
+  dateFrom: Date;
+  dateTo: Date;
   dateOfRequest: Date;
   totalKm: number;
   travelFrom: string;
@@ -15,7 +17,8 @@ export interface Request {
 }
 export interface SaveRequest {
   vehicleId: number;
-  dateOfRequest: Date;
+  dateFrom: Date;
+  dateTo: Date;
   totalKm: number;
   travelFrom: string;
   travelTo: string;

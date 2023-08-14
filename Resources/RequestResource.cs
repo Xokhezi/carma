@@ -12,6 +12,8 @@ namespace carma.Resources
         public int Id { get; set; }
         public Vehicle Vehicle { get; set; }
         public DateTime DateOfRequest { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
         public int TotalKm { get; set; }
         public string TravelFrom { get; set; }
         public string TravelTo { get; set; }

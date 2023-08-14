@@ -16,12 +16,22 @@
       </select>
     </div>
     <div class="form-outline mb-4">
-      <label class="form-label" for="totalKm">Datum:</label>
+      <label class="form-label" for="dateFrom">Od:</label>
       <input
         type="date"
-        id="dateOfRequest"
-        name="dateOfRequest"
-        [(ngModel)]="request.dateOfRequest"
+        id="dateFrom"
+        name="dateFrom"
+        [(ngModel)]="request.dateFrom"
+        class="form-control form-control-lg"
+      />
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="dateTo">Do:</label>
+      <input
+        type="date"
+        id="dateTo"
+        name="dateTo"
+        [(ngModel)]="request.dateTo"
         class="form-control form-control-lg"
       />
     </div>
