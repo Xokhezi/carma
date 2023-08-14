@@ -18,6 +18,7 @@
     <div class="form-outline mb-4">
       <label class="form-label" for="dateFrom">Od:</label>
       <input
+        (change)="checkDates()"
         type="date"
         id="dateFrom"
         name="dateFrom"
@@ -31,6 +32,7 @@
         type="date"
         id="dateTo"
         name="dateTo"
+        (change)="checkDates()"
         [(ngModel)]="request.dateTo"
         class="form-control form-control-lg"
       />
