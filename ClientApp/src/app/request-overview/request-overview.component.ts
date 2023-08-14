@@ -48,7 +48,6 @@ export class RequestOverviewComponent {
     });
 
     dialogRef.componentInstance.requestUpdated.subscribe((updateSuccess) => {
-      console.log('Update success:', updateSuccess);
       updateSuccess
         ? (this.notificationStatus = 'success')
         : (this.notificationStatus = 'error');

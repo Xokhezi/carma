@@ -3,19 +3,27 @@
   top: 10px;
   left: 10px;
   width: 400px;
-  height: 100px;
+  height: 130px;
   background: rgba(248, 243, 243, 0.864);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 .notifacation-loader {
   width: 100%;
-  background: green;
   height: 5px;
   animation: loading 2s ease-in-out forwards;
 }
+.red {
+  background: red;
+}
+.green {
+  background: green;
+}
 .notification h2 {
   padding: 10px;
+}
+.notification p {
+  padding-inline: 10px;
 }
 @keyframes loading {
   0% {
