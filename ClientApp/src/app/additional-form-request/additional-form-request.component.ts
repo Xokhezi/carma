@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {
   Request,
   RequestService,
@@ -15,10 +15,11 @@ export class AdditionalFormRequestComponent {
   requestToSave: SaveRequest = {} as SaveRequest;
   updateSucces = false;
   @Output() requestUpdated: EventEmitter<boolean> = new EventEmitter<boolean>();
-  totalKm: number = 0;
+  totalKm: number = this.data.totalKm;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Request,
-    private requestService: RequestService
+    private requestService: RequestService,
+    private dialogRef: MatDialogRef<AdditionalFormRequestComponent>
   ) {}
   ngOnInit(): void {}
   updateRequest() {
@@ -35,11 +36,13 @@ export class AdditionalFormRequestComponent {
         complete: () => {
           this.updateSucces = true;
           this.requestUpdated.emit(this.updateSucces);
+          this.dialogRef.close();
         },
         error: (err) => {
           this.updateSucces = false;
           this.requestUpdated.emit(this.updateSucces);
           console.log(err);
+          this.dialogRef.close();
         },
       });
   }

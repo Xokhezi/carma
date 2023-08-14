@@ -58,7 +58,7 @@ export class RequestOverviewComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
+      this.getRequests();
     });
   }
   //update request regarding request and action
