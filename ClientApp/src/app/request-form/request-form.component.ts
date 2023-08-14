@@ -53,4 +53,13 @@ export class RequestFormComponent {
       },
     });
   }
+  checkDates() {
+    if (this.request.dateFrom && this.request.dateTo) {
+      if (this.request.dateFrom > this.request.dateTo) {
+        this.error = 'Datum od nesmí být větší než datum do!';
+      } else {
+        this.error = '';
+      }
+    }
+  }
 }
