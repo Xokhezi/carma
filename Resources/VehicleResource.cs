@@ -12,5 +12,6 @@ namespace carma.Resources
         public string Type { get; set; }
         public int StateOfKm { get; set; }
         public string Owner { get; set; }
+        public string Status { get; set; }
     }
 }
