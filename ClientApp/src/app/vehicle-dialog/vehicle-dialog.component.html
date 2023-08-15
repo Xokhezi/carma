@@ -1,0 +1,52 @@
+<section>
+  <div class="form-outline mb-3">
+    <label class="form-label" for="type">Typ:</label>
+    <input
+      type="text"
+      id="type"
+      #type="ngModel"
+      required
+      name="type"
+      [(ngModel)]="vehicle.type"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
+    <label class="form-label" for="plate">SPZ:</label>
+    <input
+      type="text"
+      id="plate"
+      #plate="ngModel"
+      required
+      name="plate"
+      [(ngModel)]="vehicle.plate"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
+    <label class="form-label" for="stateOfKm">Celkem Km:</label>
+    <input
+      type="number"
+      id="stateOfKm"
+      #stateOfKm="ngModel"
+      required
+      name="stateOfKm"
+      [(ngModel)]="vehicle.stateOfKm"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
+    <label class="form-label" for="plate">Status:</label>
+    <select
+      class="form-control"
+      [(ngModel)]="vehicle.status"
+      name="view"
+      id="view"
+    >
+      <option value="Pending" selected>Rezervováno</option>
+      <option value="Out">Vydané</option>
+      <option value="Out">V garáži</option>
+    </select>
+  </div>
+  <button class="btn btn-primary">Uložit</button>
+</section>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Vehicle, VehicleService } from '../Services/vehicle.service';
+import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-car-overview',
@@ -10,7 +12,10 @@ export class CarOverviewComponent {
   loading = false;
   vehicles: Vehicle[] = [];
   error = '';
-  constructor(private vehiclesService: VehicleService) {}
+  constructor(
+    private vehiclesService: VehicleService,
+    public dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.loading = true;
     this.vehiclesService.getVehicles().subscribe({
@@ -20,6 +25,15 @@ export class CarOverviewComponent {
         console.log(err);
         this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
       },
+    });
+  }
+  openDialog(vehicle: Vehicle): void {
+    const dialogRef = this.dialog.open(VehicleDialogComponent, {
+      data: vehicle,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
     });
   }
 }

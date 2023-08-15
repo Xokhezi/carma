@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
 import { NotificationComponent } from './notification/notification.component';
 import { CarOverviewComponent } from './car-overview/car-overview.component';
+import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CarOverviewComponent } from './car-overview/car-overview.component';
     AdditionalFormRequestComponent,
     NotificationComponent,
     CarOverviewComponent,
+    VehicleDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
