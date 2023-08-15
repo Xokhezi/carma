@@ -9,13 +9,17 @@ import { Vehicle, VehicleService } from '../Services/vehicle.service';
 export class CarOverviewComponent {
   loading = false;
   vehicles: Vehicle[] = [];
+  error = '';
   constructor(private vehiclesService: VehicleService) {}
   ngOnInit(): void {
     this.loading = true;
     this.vehiclesService.getVehicles().subscribe({
       next: (vehicles) => (this.vehicles = vehicles),
       complete: () => (this.loading = false),
-      error: (err) => console.log(err),
+      error: (err) => {
+        console.log(err);
+        this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
+      },
     });
   }
 }
