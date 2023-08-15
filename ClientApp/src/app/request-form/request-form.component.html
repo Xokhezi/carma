@@ -3,6 +3,18 @@
     <h1>Nová žádanka</h1>
     <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
     <div
+      *ngIf="vehicleId.touched && !vehicleId.valid"
+      class="alert alert-danger"
+    >
+      Nutno vyplnit kolonku Auto.
+    </div>
+    <div *ngIf="dateFrom.touched && !dateFrom.valid" class="alert alert-danger">
+      Nutno vyplnit kolonku Od.
+    </div>
+    <div *ngIf="dateTo.touched && !dateTo.valid" class="alert alert-danger">
+      Nutno vyplnit kolonku Dp.
+    </div>
+    <div
       *ngIf="travelFrom.touched && !travelFrom.valid"
       class="alert alert-danger"
     >
@@ -11,12 +23,7 @@
     <div *ngIf="travelTo.touched && !travelTo.valid" class="alert alert-danger">
       Nutno vyplnit kolonku Cíl.
     </div>
-    <div
-      *ngIf="vehicleId.touched && !vehicleId.valid"
-      class="alert alert-danger"
-    >
-      Nutno vyplnit kolonku Auto.
-    </div>
+
     <form #requestForm="ngForm">
       <div class="form-group mb-3">
         <label class="form-label" for="vehicleId">Vozidlo:</label>
@@ -39,6 +46,8 @@
           (change)="checkDates()"
           type="date"
           id="dateFrom"
+          #dateFrom="ngModel"
+          required
           name="dateFrom"
           [(ngModel)]="request.dateFrom"
           class="form-control form-control-lg"
@@ -49,7 +58,9 @@
         <input
           type="date"
           id="dateTo"
+          #dateTo="ngModel"
           name="dateTo"
+          required
           (change)="checkDates()"
           [(ngModel)]="request.dateTo"
           class="form-control form-control-lg"
