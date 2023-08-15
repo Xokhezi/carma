@@ -1,0 +1,16 @@
+<table *ngIf="!loading" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Typ</th>
+      <th scope="col">SPZ</th>
+      <th scope="col">Stav Km</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of vehicles">
+      <th scope="col">{{ v.type }}</th>
+      <td scope="col">{{ v.plate }}</td>
+      <td scope="col">{{ v.stateOfKm }}</td>
+    </tr>
+  </tbody>
+</table>

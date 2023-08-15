@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
 import { NotificationComponent } from './notification/notification.component';
+import { CarOverviewComponent } from './car-overview/car-overview.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NotificationComponent } from './notification/notification.component';
     RequestOverviewComponent,
     AdditionalFormRequestComponent,
     NotificationComponent,
+    CarOverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -46,6 +48,10 @@ import { NotificationComponent } from './notification/notification.component';
       {
         path: 'requests-overview/:departmentId',
         component: RequestOverviewComponent,
+      },
+      {
+        path: 'vehicles-overview',
+        component: CarOverviewComponent,
       },
       { path: 'request-form/:id', component: RequestFormComponent },
     ]),
