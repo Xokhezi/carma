@@ -2,61 +2,90 @@
   <div class="form-section">
     <h1>Nová žádanka</h1>
     <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
-    <div class="form-group">
-      <label class="form-label" for="vehicleId">Vozidlo:</label>
-      <select
-        class="form-control form-control-lg"
-        name="vehicleId"
-        id="vehicleId"
-        [(ngModel)]="request.vehicleId"
+    <div
+      *ngIf="travelFrom.touched && !travelFrom.valid"
+      class="alert alert-danger"
+    >
+      Nutno vyplnit kolonku Začátek.
+    </div>
+    <div *ngIf="travelTo.touched && !travelTo.valid" class="alert alert-danger">
+      Nutno vyplnit kolonku Cíl.
+    </div>
+    <div
+      *ngIf="vehicleId.touched && !vehicleId.valid"
+      class="alert alert-danger"
+    >
+      Nutno vyplnit kolonku Auto.
+    </div>
+    <form #requestForm="ngForm">
+      <div class="form-group mb-3">
+        <label class="form-label" for="vehicleId">Vozidlo:</label>
+        <select
+          class="form-control form-control-lg"
+          name="vehicleId"
+          #vehicleId="ngModel"
+          id="vehicleId"
+          required
+          [(ngModel)]="request.vehicleId"
+        >
+          <option *ngFor="let v of vehicles" value="{{ v.id }}">
+            {{ v.plate }} {{ v.type }}
+          </option>
+        </select>
+      </div>
+      <div class="form-outline mb-3">
+        <label class="form-label" for="dateFrom">Od:</label>
+        <input
+          (change)="checkDates()"
+          type="date"
+          id="dateFrom"
+          name="dateFrom"
+          [(ngModel)]="request.dateFrom"
+          class="form-control form-control-lg"
+        />
+      </div>
+      <div class="form-outline mb-3">
+        <label class="form-label" for="dateTo">Do:</label>
+        <input
+          type="date"
+          id="dateTo"
+          name="dateTo"
+          (change)="checkDates()"
+          [(ngModel)]="request.dateTo"
+          class="form-control form-control-lg"
+        />
+      </div>
+      <div class="form-outline mb-3">
+        <label class="form-label" for="travelFrom">Začátek:</label>
+        <input
+          type="text"
+          id="travelFrom"
+          #travelFrom="ngModel"
+          name="travelFrom"
+          required
+          class="form-control form-control-lg"
+          [(ngModel)]="request.travelFrom"
+        />
+      </div>
+      <div class="form-outline mb-3">
+        <label class="form-label" for="travelTo">Cíl:</label>
+        <input
+          type="text"
+          id="travelTo"
+          #travelTo="ngModel"
+          name="travelTo"
+          required
+          class="form-control form-control-lg"
+          [(ngModel)]="request.travelTo"
+        />
+      </div>
+      <button
+        (click)="createRequest()"
+        class="btn btn-primary"
+        [disabled]="requestForm.invalid"
       >
-        <option *ngFor="let v of vehicles" value="{{ v.id }}">
-          {{ v.plate }} {{ v.type }}
-        </option>
-      </select>
-    </div>
-    <div class="form-outline mb-4">
-      <label class="form-label" for="dateFrom">Od:</label>
-      <input
-        (change)="checkDates()"
-        type="date"
-        id="dateFrom"
-        name="dateFrom"
-        [(ngModel)]="request.dateFrom"
-        class="form-control form-control-lg"
-      />
-    </div>
-    <div class="form-outline mb-4">
-      <label class="form-label" for="dateTo">Do:</label>
-      <input
-        type="date"
-        id="dateTo"
-        name="dateTo"
-        (change)="checkDates()"
-        [(ngModel)]="request.dateTo"
-        class="form-control form-control-lg"
-      />
-    </div>
-    <div class="form-outline mb-4">
-      <label class="form-label" for="travelFrom">Začátek:</label>
-      <input
-        type="text"
-        id="travelFrom"
-        name="travelFrom"
-        class="form-control form-control-lg"
-        [(ngModel)]="request.travelFrom"
-      />
-    </div>
-    <div class="form-outline mb-4">
-      <label class="form-label" for="travelTo">Cíl:</label>
-      <input
-        type="text"
-        id="travelTo"
-        name="travelTo"
-        class="form-control form-control-lg"
-        [(ngModel)]="request.travelTo"
-      />
-    </div>
-    <button (click)="createRequest()" class="btn btn-primary">Zažádat</button>
+        Zažádat
+      </button>
+    </form>
   </div>
 </section>

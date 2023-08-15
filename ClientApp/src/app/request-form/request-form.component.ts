@@ -3,6 +3,7 @@ import { RequestService, SaveRequest } from '../Services/request.service';
 import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { LoginService, User } from '../Services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request-form',
@@ -35,7 +36,6 @@ export class RequestFormComponent {
         this.error = err.error;
       },
     });
-    console.log(this.user);
   }
   createRequest() {
     this.request.status = 'New';
