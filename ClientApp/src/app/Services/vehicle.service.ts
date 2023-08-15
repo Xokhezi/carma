@@ -5,6 +5,7 @@ export interface Vehicle {
   plate: string;
   type: string;
   stateOfKm: number;
+  status: string;
 }
 @Injectable({
   providedIn: 'root',
