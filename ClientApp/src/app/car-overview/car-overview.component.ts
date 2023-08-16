@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class CarOverviewComponent {
   loading = false;
   vehicles: Vehicle[] = [];
+  emptyVehicle: Vehicle = {} as Vehicle;
   error = '';
   notificationStatus: any;
   notificationTimeout: any;
@@ -22,14 +23,7 @@ export class CarOverviewComponent {
 
   ngOnInit(): void {
     this.loading = true;
-    this.vehiclesService.getVehicles().subscribe({
-      next: (vehicles) => (this.vehicles = vehicles),
-      complete: () => (this.loading = false),
-      error: (err) => {
-        console.log(err);
-        this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
-      },
-    });
+    this.geVehicles();
   }
   openDialog(vehicle: Vehicle): void {
     const dialogRef = this.dialog.open(VehicleDialogComponent, {
@@ -46,6 +40,18 @@ export class CarOverviewComponent {
       }, 2000);
     });
 
-    dialogRef.afterClosed().subscribe((result) => {});
+    dialogRef.afterClosed().subscribe((result) => {
+      this.geVehicles();
+    });
+  }
+  geVehicles() {
+    this.vehiclesService.getVehicles().subscribe({
+      next: (vehicles) => (this.vehicles = vehicles),
+      complete: () => (this.loading = false),
+      error: (err) => {
+        console.log(err);
+        this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
+      },
+    });
   }
 }

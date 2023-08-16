@@ -36,6 +36,18 @@
     />
   </div>
   <div class="form-outline mb-3">
+    <label class="form-label" for="stateOfKm">Majitel:</label>
+    <input
+      type="text"
+      id="owner"
+      #stateOfKm="ngModel"
+      required
+      name="owner"
+      [(ngModel)]="vehicle.owner"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
     <label class="form-label" for="plate">Status:</label>
     <select
       class="form-control"

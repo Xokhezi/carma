@@ -11,6 +11,7 @@
   header="Chyba"
   loaderColor="red"
 ></notification>
+<button class="btn-add" (click)="openDialog(emptyVehicle)">+</button>
 <table *ngIf="!loading" class="table table-hover">
   <thead>
     <tr>
@@ -18,6 +19,7 @@
       <th scope="col">SPZ</th>
       <th scope="col">Stav Km</th>
       <th scope="col">Status</th>
+      <th scope="col">Majitel</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +28,7 @@
       <td scope="col">{{ v.plate }}</td>
       <td scope="col">{{ v.stateOfKm }}</td>
       <td scope="col">{{ v.status }}</td>
+      <td scope="col">{{ v.owner }}</td>
     </tr>
   </tbody>
 </table>

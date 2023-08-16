@@ -6,12 +6,14 @@ export interface Vehicle {
   type: string;
   stateOfKm: number;
   status: string;
+  owner: string;
 }
 export interface SaveVehicle {
   plate: string;
   type: string;
   stateOfKm: number;
   status: string;
+  owner: string;
 }
 @Injectable({
   providedIn: 'root',

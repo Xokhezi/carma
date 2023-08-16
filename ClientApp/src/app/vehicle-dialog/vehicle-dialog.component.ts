@@ -21,26 +21,52 @@ export class VehicleDialogComponent {
 
   updateVehicle() {
     const { id, ...vehicleWithoutId } = this.vehicle;
-    this.vehicleService.updateVehicle(vehicleWithoutId, id).subscribe({
-      next: () => {
-        this.buttonLoading = true;
-        this.buttonText = 'Ukládám...';
-      },
-      complete: () => {
-        this.buttonLoading = false;
-        this.buttonText = 'Uložit';
-        this.updateSucces = true;
-        this.requestUpdated.emit(this.updateSucces);
-        this.dialogRef.close();
-      },
-      error: (err) => {
-        console.log(err.error);
-        this.buttonLoading = false;
-        this.buttonText = 'Uložit';
-        this.updateSucces = false;
-        this.requestUpdated.emit(this.updateSucces);
-        this.dialogRef.close();
-      },
-    });
+    console.log(id);
+    if (id != 0 && id != null && id != undefined) {
+      this.vehicleService.updateVehicle(vehicleWithoutId, id).subscribe({
+        next: () => {
+          this.buttonLoading = true;
+          this.buttonText = 'Ukládám...';
+        },
+        complete: () => {
+          this.buttonLoading = false;
+          this.buttonText = 'Uložit';
+          this.updateSucces = true;
+          this.requestUpdated.emit(this.updateSucces);
+          this.dialogRef.close();
+        },
+        error: (err) => {
+          console.log(err.error);
+          this.buttonLoading = false;
+          this.buttonText = 'Uložit';
+          this.updateSucces = false;
+          this.requestUpdated.emit(this.updateSucces);
+          this.dialogRef.close();
+        },
+      });
+    } else {
+      console.log(this.vehicle);
+      this.vehicleService.createVehicle(this.vehicle).subscribe({
+        next: () => {
+          this.buttonLoading = true;
+          this.buttonText = 'Ukládám...';
+        },
+        complete: () => {
+          this.buttonLoading = false;
+          this.buttonText = 'Uložit';
+          this.updateSucces = true;
+          this.requestUpdated.emit(this.updateSucces);
+          this.dialogRef.close();
+        },
+        error: (err) => {
+          console.log(err.error);
+          this.buttonLoading = false;
+          this.buttonText = 'Uložit';
+          this.updateSucces = false;
+          this.requestUpdated.emit(this.updateSucces);
+          this.dialogRef.close();
+        },
+      });
+    }
   }
 }

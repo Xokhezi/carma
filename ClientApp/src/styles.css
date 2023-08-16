@@ -23,7 +23,18 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.btn-add {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease-in-out;
+}
+.btn-add:hover {
+  transform: scale(1.05);
+}
 html,
 body {
   height: 100%;
