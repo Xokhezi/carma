@@ -7,6 +7,12 @@ export interface Vehicle {
   stateOfKm: number;
   status: string;
 }
+export interface SaveVehicle {
+  plate: string;
+  type: string;
+  stateOfKm: number;
+  status: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -18,11 +24,11 @@ export class VehicleService {
   getSingleVehicle(id: number) {
     return this.apiClient.getSingle<Vehicle>('vehicles' + '/' + id);
   }
-  createVehicle(vehicle: Vehicle) {
-    return this.apiClient.create<Vehicle>(vehicle, 'vehicles');
+  createVehicle(vehicle: SaveVehicle) {
+    return this.apiClient.create<SaveVehicle>(vehicle, 'vehicles');
   }
-  updateVehicle(vehicle: Vehicle, id: number) {
-    return this.apiClient.update<Vehicle>(vehicle, 'vehicles' + '/' + id);
+  updateVehicle(vehicle: SaveVehicle, id: number) {
+    return this.apiClient.update<SaveVehicle>(vehicle, 'vehicles' + '/' + id);
   }
   deleteVehicle(id: Number) {
     return this.apiClient.delete('vehicles' + '/' + id);

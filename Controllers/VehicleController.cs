@@ -41,27 +41,27 @@ namespace carma.Controllers
             return Ok(vehicleResource);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Model is Invalid");
             var existingApp = await context.Vehicles.FirstOrDefaultAsync(a => a.Plate == vehicleResource.Plate);
             if (existingApp != null)
                 return BadRequest("Plate already exists");
-            var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+            var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             context.Vehicles.Add(vehicle);
             await context.SaveChangesAsync();
             return Ok(vehicleResource);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Model is Invalid");
             var vehicle = await context.Vehicles.FindAsync(id);
             if (vehicle == null)
                 return NotFound();
-            mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
+            mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
             await context.SaveChangesAsync();
             return Ok(vehicleResource);
         }

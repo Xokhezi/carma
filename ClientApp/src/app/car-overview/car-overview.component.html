@@ -1,4 +1,16 @@
 <div *ngIf="error" class="alert-danger alert">{{ error }}</div>
+<notification
+  *ngIf="notificationStatus === 'success'"
+  notificationContent="Vozidlo bylo úspěšně aktualizováno"
+  header="Hotovo"
+  loaderColor="green"
+></notification>
+<notification
+  *ngIf="notificationStatus === 'error'"
+  notificationContent="Něco se pokazilo, zkuste to znovu"
+  header="Chyba"
+  loaderColor="red"
+></notification>
 <table *ngIf="!loading" class="table table-hover">
   <thead>
     <tr>

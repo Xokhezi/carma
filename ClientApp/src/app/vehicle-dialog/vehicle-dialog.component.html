@@ -48,5 +48,11 @@
       <option value="Out">V garáži</option>
     </select>
   </div>
-  <button class="btn btn-primary">Uložit</button>
+  <button
+    class="btn btn-primary"
+    (click)="updateVehicle()"
+    [disabled]="buttonLoading"
+  >
+    {{ buttonText }}
+  </button>
 </section>

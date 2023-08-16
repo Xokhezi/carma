@@ -12,10 +12,14 @@ export class CarOverviewComponent {
   loading = false;
   vehicles: Vehicle[] = [];
   error = '';
+  notificationStatus: any;
+  notificationTimeout: any;
+
   constructor(
     private vehiclesService: VehicleService,
     public dialog: MatDialog
   ) {}
+
   ngOnInit(): void {
     this.loading = true;
     this.vehiclesService.getVehicles().subscribe({
@@ -30,6 +34,17 @@ export class CarOverviewComponent {
   openDialog(vehicle: Vehicle): void {
     const dialogRef = this.dialog.open(VehicleDialogComponent, {
       data: vehicle,
+    });
+
+    dialogRef.componentInstance.requestUpdated.subscribe((updateSuccess) => {
+      console.log(updateSuccess);
+      updateSuccess
+        ? (this.notificationStatus = 'success')
+        : (this.notificationStatus = 'error');
+      clearTimeout(this.notificationTimeout);
+      this.notificationTimeout = setInterval(() => {
+        this.notificationStatus = null;
+      }, 2000);
     });
 
     dialogRef.afterClosed().subscribe((result) => {

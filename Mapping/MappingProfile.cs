@@ -20,7 +20,7 @@ namespace carma.Mapping
 
             //api resource to domain
             CreateMap<SaveRequestResource, Request>();
-            CreateMap<VehicleResource, Vehicle>();
+            CreateMap<SaveVehicleResource, Vehicle>();
         }
     }
 }
