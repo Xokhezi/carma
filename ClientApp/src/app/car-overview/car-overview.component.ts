@@ -37,7 +37,6 @@ export class CarOverviewComponent {
     });
 
     dialogRef.componentInstance.requestUpdated.subscribe((updateSuccess) => {
-      console.log(updateSuccess);
       updateSuccess
         ? (this.notificationStatus = 'success')
         : (this.notificationStatus = 'error');
@@ -47,8 +46,6 @@ export class CarOverviewComponent {
       }, 2000);
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 }
