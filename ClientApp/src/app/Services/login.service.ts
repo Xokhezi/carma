@@ -7,6 +7,9 @@ export interface User {
   Role: string;
   DepartmentId: string;
 }
+export interface UserRole {
+  role: string;
+}
 interface UserValidation {
   email: string;
   appName: string;
@@ -49,7 +52,7 @@ export class LoginService {
       appName;
 
     if (!email) return null;
-    return this.http.get(url);
+    return this.http.get<UserRole>(url);
   }
   getValidation() {
     let headers = new HttpHeaders();

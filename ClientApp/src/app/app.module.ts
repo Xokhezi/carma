@@ -21,6 +21,7 @@ import { AdditionalFormRequestComponent } from './additional-form-request/additi
 import { NotificationComponent } from './notification/notification.component';
 import { CarOverviewComponent } from './car-overview/car-overview.component';
 import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
+import { AuthGuardService } from './Services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -50,10 +51,12 @@ import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.componen
       {
         path: 'requests-overview/:departmentId',
         component: RequestOverviewComponent,
+        canActivate: [AuthGuardService],
       },
       {
         path: 'vehicles-overview',
         component: CarOverviewComponent,
+        canActivate: [AuthGuardService],
       },
       { path: 'request-form/:id', component: RequestFormComponent },
     ]),
