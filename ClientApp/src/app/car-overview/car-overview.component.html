@@ -20,15 +20,21 @@
       <th scope="col">Stav Km</th>
       <th scope="col">Status</th>
       <th scope="col">Majitel</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let v of vehicles" (click)="openDialog(v)">
-      <th scope="col">{{ v.type }}</th>
-      <td scope="col">{{ v.plate }}</td>
-      <td scope="col">{{ v.stateOfKm }}</td>
-      <td scope="col">{{ v.status }}</td>
-      <td scope="col">{{ v.owner }}</td>
+    <tr *ngFor="let v of vehicles">
+      <th scope="col" (click)="openDialog(v)">{{ v.type }}</th>
+      <td scope="col" (click)="openDialog(v)">{{ v.plate }}</td>
+      <td scope="col" (click)="openDialog(v)">{{ v.stateOfKm }}</td>
+      <td scope="col" (click)="openDialog(v)">{{ v.status }}</td>
+      <td scope="col" (click)="openDialog(v)">{{ v.owner }}</td>
+      <td scope="col">
+        <button class="btn btn-primary" (click)="deleteVehicle(v)">
+          Delete
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

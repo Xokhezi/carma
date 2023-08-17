@@ -31,13 +31,7 @@ export class CarOverviewComponent {
     });
 
     dialogRef.componentInstance.requestUpdated.subscribe((updateSuccess) => {
-      updateSuccess
-        ? (this.notificationStatus = 'success')
-        : (this.notificationStatus = 'error');
-      clearTimeout(this.notificationTimeout);
-      this.notificationTimeout = setInterval(() => {
-        this.notificationStatus = null;
-      }, 2000);
+      this.handleNotification(updateSuccess);
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -53,5 +47,27 @@ export class CarOverviewComponent {
         this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
       },
     });
+  }
+  deleteVehicle(vehicle: Vehicle) {
+    this.vehiclesService.deleteVehicle(vehicle.id).subscribe({
+      next: () => {},
+      complete: () => {
+        this.geVehicles();
+        this.handleNotification(true);
+      },
+      error: (err) => {
+        console.log(err);
+        this.handleNotification(false);
+      },
+    });
+  }
+  handleNotification(status: boolean) {
+    status
+      ? (this.notificationStatus = 'success')
+      : (this.notificationStatus = 'error');
+    clearTimeout(this.notificationTimeout);
+    this.notificationTimeout = setInterval(() => {
+      this.notificationStatus = null;
+    }, 2000);
   }
 }
