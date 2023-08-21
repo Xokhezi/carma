@@ -50,7 +50,8 @@ namespace carma.Controllers
             var existingRequests = await context.Requests
       .Where(r =>
           r.VehicleId == requestResource.VehicleId &&
-          r.Status != "New" || r.Status != "Parked" || r.Status != "Rejected" &&
+          //bug nto allowing creation of request 
+          //r.Status != "New" || r.Status != "Parked" || r.Status != "Rejected" &&
           (
 
               (r.DateFrom < requestResource.DateTo && r.DateTo > requestResource.DateFrom) ||
