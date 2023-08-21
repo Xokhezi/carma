@@ -37,6 +37,27 @@ namespace carma.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Model is Invalid");
+
+            // Validate start and end dates
+            if (requestResource.DateFrom >= requestResource.DateTo)
+                return BadRequest("End date must be after start date");
+
+            var vehicle = await context.Vehicles.FindAsync(requestResource.VehicleId);
+            if (vehicle == null)
+                return NotFound("Vehicle not found");
+
+            // Check if the vehicle is already out for the given time period
+            var existingRequests = await context.Requests
+                .Where(r =>
+                    r.VehicleId == requestResource.VehicleId &&
+                    r.Status != "New" && r.Status != "Rejected" && r.Status != "Parked" &&
+                    ((r.DateFrom < requestResource.DateFrom && r.DateTo < requestResource.DateFrom) ||
+                     (r.DateFrom > requestResource.DateFrom && r.DateTo > requestResource.DateTo)))
+                .ToListAsync();
+
+            if (existingRequests.Any())
+                return BadRequest("Pro tento čas je vozidlo již rezervováno");
+
             var request = mapper.Map<SaveRequestResource, Request>(requestResource);
             request.DateOfRequest = DateTime.Now;
             context.Requests.Add(request);
@@ -57,4 +78,6 @@ namespace carma.Controllers
             return Ok(requestFromDb);
         }
     }
+
+
 }
