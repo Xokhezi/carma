@@ -48,12 +48,14 @@ namespace carma.Controllers
 
             // Check if the vehicle is already out for the given time period
             var existingRequests = await context.Requests
-                .Where(r =>
-                    r.VehicleId == requestResource.VehicleId &&
-                    r.Status != "New" && r.Status != "Rejected" && r.Status != "Parked" &&
-                    ((r.DateFrom < requestResource.DateFrom && r.DateTo < requestResource.DateFrom) ||
-                     (r.DateFrom > requestResource.DateFrom && r.DateTo > requestResource.DateTo)))
-                .ToListAsync();
+      .Where(r =>
+          r.VehicleId == requestResource.VehicleId &&
+          (
+              (r.DateFrom < requestResource.DateTo && r.DateTo > requestResource.DateFrom) ||
+              (r.DateFrom < requestResource.DateFrom && r.DateTo > requestResource.DateFrom)
+          ))
+      .ToListAsync();
+
 
             if (existingRequests.Any())
                 return BadRequest("Pro tento čas je vozidlo již rezervováno");
