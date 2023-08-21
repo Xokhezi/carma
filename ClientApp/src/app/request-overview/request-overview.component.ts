@@ -9,6 +9,7 @@ import { LoginService } from '../Services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@auth0/auth0-angular';
 import { MatDialog } from '@angular/material/dialog';
+import { Vehicle, VehicleService } from '../Services/vehicle.service';
 
 @Component({
   selector: 'app-request-overview',
@@ -29,7 +30,8 @@ export class RequestOverviewComponent {
     private requestService: RequestService,
     private active: ActivatedRoute,
     private login: LoginService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public vehicleService: VehicleService
   ) {}
 
   ngOnInit(): void {
@@ -78,8 +80,18 @@ export class RequestOverviewComponent {
         this.error = err.error;
         this.loading = false;
       },
+      //pending aout parked
       complete: () => {
         this.loading = false;
+        let status = '';
+        if (action === 'Approved') {
+          status = 'Pending';
+        } else if (action === 'Out') {
+          status = 'Out';
+        } else if (action === 'Returned') {
+          status = 'Parked';
+        }
+        this.updateVehicle(request.vehicle, status);
       },
     });
   }
@@ -107,6 +119,15 @@ export class RequestOverviewComponent {
           );
         }
         this.loading = false;
+      },
+    });
+  }
+  updateVehicle(vehicle: Vehicle, status: string) {
+    const updatedVehicle = { ...vehicle, status: status };
+    this.vehicleService.updateVehicle(updatedVehicle, vehicle.id).subscribe({
+      next: (response: any) => {},
+      error: (err) => {
+        this.error = err.error;
       },
     });
   }
