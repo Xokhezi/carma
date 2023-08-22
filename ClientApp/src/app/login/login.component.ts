@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   credentials: any;
   invalidCredintials = false;
+  isLoading = false;
 
   ngOnInit(): void {
     this.credentials = {};
@@ -18,16 +19,21 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService, private route: Router) {}
   login() {
-    this.loginService.login(this.credentials).subscribe(
-      (r: any) => {
+    this.loginService.login(this.credentials).subscribe({
+      next: (r: any) => {
+        this.isLoading = true;
         localStorage.setItem('token', r.token);
+      },
+      complete: () => {
+        this.isLoading = false;
         this.route.navigate(['']);
       },
-      (error: any) => {
-        if (error.status === 401) {
+      error: (err: any) => {
+        this.isLoading = false;
+        if (err.status === 401) {
           this.invalidCredintials = true;
         }
-      }
-    );
+      },
+    });
   }
 }

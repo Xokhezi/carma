@@ -16,6 +16,8 @@ export class RequestFormComponent {
   vehicles: Vehicle[] = [];
   user: User = this.loginService.getcurrentUser() || ({} as User);
   request: SaveRequest = {} as SaveRequest;
+  isLoading = false;
+
   constructor(
     private active: ActivatedRoute,
     private requestService: RequestService,
@@ -30,9 +32,14 @@ export class RequestFormComponent {
     });
     this.vehicleService.getVehicles().subscribe({
       next: (response: any) => {
+        this.isLoading = true;
         this.vehicles = response;
       },
+      complete: () => {
+        this.isLoading = false;
+      },
       error: (err) => {
+        this.isLoading = false;
         this.error = err.error;
       },
     });

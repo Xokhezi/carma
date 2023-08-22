@@ -27,6 +27,9 @@
     <form #requestForm="ngForm">
       <div class="form-group mb-3">
         <label class="form-label" for="vehicleId">Vozidlo:</label>
+        <label class="form-label" *ngIf="isLoading"
+          >Seznam se načítá.<i class="loading-i bi bi-gear"></i
+        ></label>
         <select
           class="form-control form-control-lg"
           name="vehicleId"
