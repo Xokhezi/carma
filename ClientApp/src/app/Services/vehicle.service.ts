@@ -20,8 +20,8 @@ export interface SaveVehicle {
 })
 export class VehicleService {
   constructor(private apiClient: ApiClientService) {}
-  getVehicles() {
-    return this.apiClient.getAll<Vehicle[]>('vehicles');
+  getVehicles(email?: string) {
+    return this.apiClient.getAll<Vehicle[]>('vehicles?email=' + email);
   }
   getSingleVehicle(id: number) {
     return this.apiClient.getSingle<Vehicle>('vehicles' + '/' + id);

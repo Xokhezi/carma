@@ -26,11 +26,11 @@ export class RequestFormComponent {
     private loginService: LoginService
   ) {}
   ngOnInit(): void {
-    this.request.email = this.user.Email;
+    this.request.email = this.user.Email || '';
     this.active.paramMap.subscribe((params: any) => {
       this.id = params.get('id?');
     });
-    this.vehicleService.getVehicles().subscribe({
+    this.vehicleService.getVehicles(this.request.email).subscribe({
       next: (response: any) => {
         this.isLoading = true;
         this.vehicles = response;
