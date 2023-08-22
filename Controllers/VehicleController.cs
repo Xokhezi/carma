@@ -26,10 +26,19 @@ namespace carma.Controllers
 
         }
         [HttpGet]
-        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        public async Task<IEnumerable<VehicleResource>> GetVehicles(string? email)
         {
-            var vehicles = await context.Vehicles.ToListAsync();
-            return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
+            var companyVehicles = await context.Vehicles.Where(v => v.Owner == "Firma").ToListAsync();
+            var userVehicles = new List<Vehicle>();
+            if (email != null || email != "")
+            {
+                userVehicles = await context.Vehicles.Where(v => v.Owner == email).ToListAsync();
+                companyVehicles.AddRange(userVehicles);
+            }
+            var allVehicles = new List<Vehicle>();
+            allVehicles.AddRange(userVehicles);
+            allVehicles.AddRange(companyVehicles);
+            return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(companyVehicles);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
