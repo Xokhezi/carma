@@ -90,6 +90,8 @@ export class RequestOverviewComponent {
           status = 'Out';
         } else if (action === 'Returned') {
           status = 'Parked';
+          request.vehicle.stateOfKm =
+            request.vehicle.stateOfKm + request.totalKm;
         }
         this.updateVehicle(request.vehicle, status);
       },

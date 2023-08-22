@@ -27,10 +27,11 @@
     <form #requestForm="ngForm">
       <div class="form-group mb-3">
         <label class="form-label" for="vehicleId">Vozidlo:</label>
-        <label class="form-label" *ngIf="isLoading"
-          >Seznam se načítá.<i class="loading-i bi bi-gear"></i
+        <label class="form-label" *ngif="isLoading"
+          >Seznam se načítá.<i class="bi bi-gear"></i
         ></label>
         <select
+          [disabled]="isLoading"
           class="form-control form-control-lg"
           name="vehicleId"
           #vehicleId="ngModel"

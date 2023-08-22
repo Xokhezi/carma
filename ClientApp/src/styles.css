@@ -44,7 +44,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .loading-i {
-  animation: rotate 2s linear infinite;
+  animation: rotate 2s forwards;
 }
 @keyframes rotate {
   0% {
