@@ -3,6 +3,12 @@
     <h1>Nová žádanka</h1>
     <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
     <div
+      *ngIf="typeOfRequest.touched && !typeOfRequest.valid"
+      class="alert alert-danger"
+    >
+      Nutno vyplnit druh jízdy.
+    </div>
+    <div
       *ngIf="vehicleId.touched && !vehicleId.valid"
       class="alert alert-danger"
     >
@@ -26,12 +32,29 @@
 
     <form #requestForm="ngForm">
       <div class="form-group mb-3">
-        <label class="form-label" for="vehicleId">Vozidlo:</label>
-        <label class="form-label" *ngif="isLoading"
+        <label class="form-label" for="typeOfRequest">Typ cesty:</label>
+        <select
+          class="form-control form-control-lg"
+          name="typeOfRequest"
+          #typeOfRequest="ngModel"
+          id="typeOfRequest"
+          required
+          [(ngModel)]="request.typeOfRequest"
+        >
+          <option value="company">Firemní</option>
+          <option value="private">Soukromá</option>
+        </select>
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="vehicleId">Vozidlo: </label>
+        <label class="form-label" *ngIf="isLoading"
           >Seznam se načítá.<i class="bi bi-gear"></i
         ></label>
+        <label class="form-label" *ngIf="!request.typeOfRequest"
+          >Vyberte nejdříve typ jízdy.</label
+        >
         <select
-          [disabled]="isLoading"
+          [disabled]="isLoading || !request.typeOfRequest"
           class="form-control form-control-lg"
           name="vehicleId"
           #vehicleId="ngModel"
@@ -93,6 +116,18 @@
           class="form-control form-control-lg"
           [(ngModel)]="request.travelTo"
         />
+      </div>
+      <div class="form-outline mb-3">
+        <label class="form-label" for="description">Poznámka:</label>
+        <textarea
+          type="text"
+          id="description"
+          #description="ngModel"
+          name="description"
+          required
+          class="form-control form-control-lg"
+          [(ngModel)]="request.description"
+        ></textarea>
       </div>
       <button
         (click)="createRequest()"

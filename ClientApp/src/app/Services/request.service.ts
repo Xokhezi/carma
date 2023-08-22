@@ -14,6 +14,8 @@ export interface Request {
   status: string;
   email: string;
   departmentId: number;
+  description: string;
+  typeOfRequest: string;
 }
 export interface SaveRequest {
   vehicleId: number;
@@ -25,6 +27,8 @@ export interface SaveRequest {
   status: string;
   email: string;
   departmentId: number;
+  description: string;
+  typeOfRequest: string;
 }
 @Injectable({
   providedIn: 'root',
