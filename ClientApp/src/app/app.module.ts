@@ -10,18 +10,18 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RequestFormComponent } from './request-form/request-form.component';
-import { RequestOverviewComponent } from './request-overview/request-overview.component';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MatDialogModule } from '@angular/material/dialog';
-import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
-import { NotificationComponent } from './notification/notification.component';
-import { CarOverviewComponent } from './car-overview/car-overview.component';
-import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
 import { AuthGuardService } from './Services/auth-guard.service';
+import { AdditionalFormRequestComponent } from './additional-form-request/additional-form-request.component';
+import { CarOverviewComponent } from './car-overview/car-overview.component';
+import { NotificationComponent } from './notification/notification.component';
+import { RequestFormComponent } from './request-form/request-form.component';
+import { RequestOverviewComponent } from './request-overview/request-overview.component';
+import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
 
 @NgModule({
   declarations: [
