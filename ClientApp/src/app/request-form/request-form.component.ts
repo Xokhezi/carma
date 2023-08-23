@@ -4,6 +4,7 @@ import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { LoginService, User } from '../Services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Favourite, FavouritesService } from '../Services/favourites.service';
 
 @Component({
   selector: 'app-request-form',
@@ -18,33 +19,25 @@ export class RequestFormComponent {
   vehicles: Vehicle[] = [];
   user: User = this.loginService.getcurrentUser() || ({} as User);
   request: SaveRequest = {} as SaveRequest;
+  favourites: Favourite[] = [];
   isLoading = false;
 
   constructor(
     private active: ActivatedRoute,
     private requestService: RequestService,
     private vehicleService: VehicleService,
+    private favouriteService: FavouritesService,
     private router: Router,
     private loginService: LoginService
   ) {}
   ngOnInit(): void {
     this.request.email = this.user.Email || '';
+    this.request.typeOfRequest = 'company';
     this.active.paramMap.subscribe((params: any) => {
       this.id = params.get('id?');
     });
-    this.vehicleService.getVehicles(this.request.email).subscribe({
-      next: (response: any) => {
-        this.isLoading = true;
-        this.vehicles = response;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.error = err.error;
-      },
-    });
+    this.getVehicles();
+    this.getFavourites();
   }
   createRequest() {
     this.request.status = 'New';
@@ -71,10 +64,45 @@ export class RequestFormComponent {
       }
     }
   }
+  getVehicles() {
+    this.vehicleService.getVehicles(this.request.email).subscribe({
+      next: (response: Vehicle[]) => {
+        this.isLoading = true;
+        this.vehicles = response;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.error = err.error;
+      },
+    });
+  }
+  getFavourites() {
+    this.favouriteService.getFavourites(this.request.email).subscribe({
+      next: (response: Favourite[]) => {
+        this.isLoading = true;
+        this.favourites = response;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.error = err.error;
+      },
+    });
+  }
   setFavourite() {
     this.isFavourite = !this.isFavourite;
   }
   toggleOpen() {
     this.isOpen = !this.isOpen;
+  }
+  setData(favourite: Favourite) {
+    this.request.travelFrom = favourite.from;
+    this.request.travelTo = favourite.to;
+    this.request.totalKm = favourite.distance;
   }
 }
