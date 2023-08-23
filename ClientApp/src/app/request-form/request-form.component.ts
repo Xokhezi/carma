@@ -15,6 +15,7 @@ export class RequestFormComponent {
   error = '';
   isFavourite: boolean = false;
   isOpen: boolean = false;
+  isFirstLoad = true;
   id = 0;
   vehicles: Vehicle[] = [];
   user: User = this.loginService.getcurrentUser() || ({} as User);
@@ -98,6 +99,7 @@ export class RequestFormComponent {
     this.isFavourite = !this.isFavourite;
   }
   toggleOpen() {
+    this.isFirstLoad = false;
     this.isOpen = !this.isOpen;
   }
   setData(favourite: Favourite) {

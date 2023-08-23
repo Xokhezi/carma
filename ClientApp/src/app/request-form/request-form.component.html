@@ -4,14 +4,14 @@
       <div
         class="favourite-list"
         [ngClass]="{
-          show: isOpen,
-          hide: !isOpen,          
+          show: isOpen&&!isFirstLoad,
+          hide: !isOpen&&!isFirstLoad,          
         }"
       >
         <div
           *ngFor="let f of favourites"
           class="favourite-list--item"
-          (click)="setData(f)"
+          (click)="setData(f); toggleOpen()"
         >
           <h3>{{ f.name }}</h3>
           <p>{{ f.distance }}Km</p>
