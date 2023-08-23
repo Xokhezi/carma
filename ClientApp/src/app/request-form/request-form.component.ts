@@ -12,6 +12,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RequestFormComponent {
   error = '';
+  isFavourite: boolean = false;
+  isOpen: boolean = false;
   id = 0;
   vehicles: Vehicle[] = [];
   user: User = this.loginService.getcurrentUser() || ({} as User);
@@ -68,5 +70,11 @@ export class RequestFormComponent {
         this.error = '';
       }
     }
+  }
+  setFavourite() {
+    this.isFavourite = !this.isFavourite;
+  }
+  toggleOpen() {
+    this.isOpen = !this.isOpen;
   }
 }

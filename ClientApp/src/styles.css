@@ -35,6 +35,19 @@ code {
 .btn-add:hover {
   transform: scale(1.05);
 }
+.btn-back {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  transition: all 0.3s ease-in-out;
+  margin-right: 5px;
+}
+.btn-back:hover {
+  transform: scale(1.05);
+}
 html,
 body {
   height: 100%;

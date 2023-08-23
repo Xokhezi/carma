@@ -1,6 +1,37 @@
 <section>
   <div class="form-section">
-    <h1>Nová žádanka</h1>
+    <div class="header-section">
+      <div
+        class="favourite-list"
+        [ngClass]="{
+          show: isOpen,
+          hide: !isOpen,          
+        }"
+      ></div>
+      <h1>Nová žádanka</h1>
+      <div class="favourite-section">
+        <i
+          [ngClass]="{
+            active: isFavourite,
+            '': !isFavourite,
+            'bi-star-fill': isFavourite,
+            'bi-star': !isFavourite
+          }"
+          class="bi bi-star fav"
+          (click)="setFavourite()"
+        ></i>
+
+        <button class="btn btn-primary btn-list" (click)="toggleOpen()">
+          <i
+            class="bi"
+            [ngClass]="{
+            'bi-caret-up-fill': isOpen,
+            'bi-caret-down-fill': !isOpen,          
+          }"
+          ></i>
+        </button>
+      </div>
+    </div>
     <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
     <div
       *ngIf="typeOfRequest.touched && !typeOfRequest.valid"

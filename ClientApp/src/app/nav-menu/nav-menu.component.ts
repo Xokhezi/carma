@@ -27,4 +27,7 @@ export class NavMenuComponent {
   logout() {
     this.loginService.logout();
   }
+  redirectToExternalUrl(url: string) {
+    window.location.href = url;
+  }
 }

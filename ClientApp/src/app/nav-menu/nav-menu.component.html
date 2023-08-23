@@ -3,6 +3,14 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
+      <button
+        class="btn-back"
+        (click)="
+          redirectToExternalUrl('https://sw02660.global.hvwan.net/apps/')
+        "
+      >
+        <i class="bi bi-chevron-double-left"></i>
+      </button>
       <a class="navbar-brand" [routerLink]="['/']">carma</a>
       <button
         class="navbar-toggler"
