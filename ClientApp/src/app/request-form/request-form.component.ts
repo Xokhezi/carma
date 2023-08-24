@@ -49,6 +49,7 @@ export class RequestFormComponent {
         console.log(response);
       },
       complete: () => {
+        if (this.isFavourite) this.createFavourite();
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -91,6 +92,25 @@ export class RequestFormComponent {
       },
       error: (err) => {
         this.isLoading = false;
+        this.error = err.error;
+      },
+    });
+  }
+  createFavourite() {
+    const favouriteToCreate = {
+      id: 0,
+      name: this.request.travelFrom + ' - ' + this.request.travelTo,
+      from: this.request.travelFrom,
+      to: this.request.travelTo,
+      distance: this.request.totalKm,
+      userEmail: this.request.email,
+    };
+
+    this.favouriteService.createFavourite(favouriteToCreate).subscribe({
+      next: (response: any) => {},
+      complete: () => console.log('done'),
+      error: (err) => {
+        console.log(err);
         this.error = err.error;
       },
     });
