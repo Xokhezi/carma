@@ -12,6 +12,9 @@ namespace carma.Models
         public string From { get; set; }
         public string To { get; set; }
         public int Distance { get; set; }
+        public string Description { get; set; }
+        public int VehicleId { get; set; }
+        public string TypeOfRequest { get; set; }
         public string UserEmail { get; set; }
     }
 }

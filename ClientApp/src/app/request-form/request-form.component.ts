@@ -101,6 +101,9 @@ export class RequestFormComponent {
       to: this.request.travelTo,
       distance: this.request.totalKm,
       userEmail: this.request.email,
+      description: this.request.description,
+      vehicleId: this.request.vehicleId,
+      typeOfRequest: this.request.typeOfRequest,
     };
 
     this.favouriteService.createFavourite(favouriteToCreate).subscribe({

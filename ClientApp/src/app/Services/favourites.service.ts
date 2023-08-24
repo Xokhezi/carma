@@ -7,6 +7,9 @@ export interface Favourite {
   to: string;
   distance: number;
   userEmail: string;
+  description: string;
+  vehicleId: number;
+  typeOfRequest: string;
 }
 @Injectable({
   providedIn: 'root',
