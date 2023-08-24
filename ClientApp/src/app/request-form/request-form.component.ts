@@ -45,9 +45,6 @@ export class RequestFormComponent {
     this.request.totalKm = 0;
     this.request.departmentId = parseInt(this.user.DepartmentId);
     this.requestService.createRequest(this.request).subscribe({
-      next: (response) => {
-        console.log(response);
-      },
       complete: () => {
         if (this.isFavourite) this.createFavourite();
         this.router.navigate(['/']);
@@ -107,8 +104,6 @@ export class RequestFormComponent {
     };
 
     this.favouriteService.createFavourite(favouriteToCreate).subscribe({
-      next: (response: any) => {},
-      complete: () => console.log('done'),
       error: (err) => {
         console.log(err);
         this.error = err.error;
