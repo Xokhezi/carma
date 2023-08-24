@@ -124,5 +124,8 @@ export class RequestFormComponent {
     this.request.travelFrom = favourite.from;
     this.request.travelTo = favourite.to;
     this.request.totalKm = favourite.distance;
+    this.request.description = favourite.description;
+    this.request.vehicleId = favourite.vehicleId;
+    this.request.typeOfRequest = favourite.typeOfRequest;
   }
 }
