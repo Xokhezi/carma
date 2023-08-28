@@ -7,19 +7,19 @@ export interface User {
   Role: string;
   DepartmentId: string;
 }
+export interface Credentials {
+  email: string;
+  password: string;
+}
 export interface UserRole {
   role: string;
-}
-interface UserValidation {
-  email: string;
-  appName: string;
 }
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   constructor(private http: HttpClient) {}
-  login(credentials: any) {
+  login(credentials: Credentials) {
     return this.http.post(
       'https://sw02660.global.hvwan.net/validator/api/auth',
       credentials

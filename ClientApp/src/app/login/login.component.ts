@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../Services/login.service';
+import { Credentials, LoginService } from '../Services/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  credentials: any;
+  credentials: Credentials = {} as Credentials;
   invalidCredintials = false;
   isLoading = false;
 
   ngOnInit(): void {
-    this.credentials = {};
     this.loginService.validateUser()?.subscribe((r: any) => {});
   }
 
