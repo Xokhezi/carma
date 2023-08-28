@@ -84,12 +84,12 @@ export class RequestOverviewComponent {
       complete: () => {
         this.loading = false;
         let status = '';
-        if (action === 'Approved') {
-          status = 'Pending';
-        } else if (action === 'Out') {
-          status = 'Out';
-        } else if (action === 'Returned') {
-          status = 'Parked';
+        if (action === 'Potvrzeno') {
+          status = 'Rezervováno';
+        } else if (action === 'Vydáno') {
+          status = 'Vydáno';
+        } else if (action === 'Uzavřeno') {
+          status = 'Zaparkováno';
           request.vehicle.stateOfKm =
             request.vehicle.stateOfKm + request.totalKm;
         }
@@ -113,7 +113,7 @@ export class RequestOverviewComponent {
           this.requests = this.requests.filter(
             (r: Request) =>
               r.departmentId.toString() == this.user!.DepartmentId &&
-              r.status == 'New'
+              r.status == 'Nový'
           );
         } else if (this.user && this.user.Role === 'assistant') {
           this.requests = this.requests.filter(

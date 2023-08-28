@@ -41,7 +41,7 @@ export class RequestFormComponent {
     this.getFavourites();
   }
   createRequest() {
-    this.request.status = 'New';
+    this.request.status = 'Nový';
     this.request.totalKm = 0;
     this.request.departmentId = parseInt(this.user.DepartmentId);
     this.requestService.createRequest(this.request).subscribe({
@@ -50,6 +50,7 @@ export class RequestFormComponent {
         this.router.navigate(['/']);
       },
       error: (err) => {
+        console.log(err);
         this.error = err.error;
       },
     });

@@ -19,7 +19,7 @@ export class FinanceOverviewComponent {
   getRequests() {
     this.requestService.getRequests().subscribe({
       next: (requests) =>
-        (this.requests = requests.filter((r) => r.status === 'Closed')),
+        (this.requests = requests.filter((r) => r.status === 'Uzavřeno')),
       complete: () => (this.isLoading = false),
       error: (err) => {
         this.isLoading = false;

@@ -20,8 +20,8 @@
     id="view"
     (change)="getRequests()"
   >
-    <option value="Approved" selected>K vydání</option>
-    <option value="Out">Vydané</option>
+    <option value="Potvrzeno" selected>K vydání</option>
+    <option value="Vydáno">Vydané</option>
   </select>
   <div *ngIf="error" class="alert-danger alert">{{ error }}</div>
   <div *ngIf="loading" class="loader"><h1>Načítám data</h1></div>
@@ -62,30 +62,33 @@
         <td scope="col " *ngIf="user?.Role === 'manager'">
           <button
             class="btn btn-primary"
-            (click)="updateRequest(r, 'Approved')"
+            (click)="updateRequest(r, 'Potvrzeno')"
           >
             <i class="bi bi-check-lg"></i>
           </button>
-          <button class="btn btn-primary" (click)="updateRequest(r, 'Denied')">
+          <button
+            class="btn btn-primary"
+            (click)="updateRequest(r, 'Zamítnuto')"
+          >
             <i class="bi bi-x-lg"></i>
           </button>
         </td>
         <td
           scope="col "
-          *ngIf="user?.Role === 'assistant' && assistantView === 'Approved'"
+          *ngIf="user?.Role === 'assistant' && assistantView === 'Potvrzeno'"
         >
-          <button class="btn btn-primary" (click)="updateRequest(r, 'Out')">
+          <button class="btn btn-primary" (click)="updateRequest(r, 'Vydáno')">
             Vydat
           </button>
         </td>
         <td
           scope="col "
-          *ngIf="user?.Role === 'assistant' && assistantView === 'Out'"
+          *ngIf="user?.Role === 'assistant' && assistantView === 'Vydáno'"
         >
           <button
             class="btn btn-primary"
             [disabled]="r.totalKm === 0"
-            (click)="updateRequest(r, 'Closed')"
+            (click)="updateRequest(r, 'Uzavřeno')"
           >
             Přijmout
           </button>
