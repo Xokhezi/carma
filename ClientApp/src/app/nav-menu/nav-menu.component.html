@@ -66,6 +66,17 @@
                   >Vozidla</a
                 >
               </li>
+              <li
+                class="nav-item"
+                [routerLinkActive]="['link-active']"
+                *ngIf="loginService.isLoggedIn()"
+              >
+                <a
+                  class="nav-link text-dark"
+                  [routerLink]="['/accounting-overview']"
+                  >Finance</a
+                >
+              </li>
               <li class="nav-item" [routerLinkActive]="['link-active']">
                 <a class="nav-link text-dark" [routerLink]="['/request-form/0']"
                   >Žádanka</a

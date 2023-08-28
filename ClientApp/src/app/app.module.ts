@@ -22,6 +22,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { RequestFormComponent } from './request-form/request-form.component';
 import { RequestOverviewComponent } from './request-overview/request-overview.component';
 import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.component';
+import { FinanceOverviewComponent } from './finance-overview/finance-overview.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.componen
     NotificationComponent,
     CarOverviewComponent,
     VehicleDialogComponent,
+    FinanceOverviewComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -56,6 +58,11 @@ import { VehicleDialogComponent } from './vehicle-dialog/vehicle-dialog.componen
       {
         path: 'vehicles-overview',
         component: CarOverviewComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'accounting-overview',
+        component: FinanceOverviewComponent,
         canActivate: [AuthGuardService],
       },
       { path: 'request-form/:id', component: RequestFormComponent },
