@@ -15,7 +15,44 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let r of requests">
+    <tr *ngFor="let r of privateRequest">
+      <th scope="col">{{ r.email }}</th>
+      <th scope="col">
+        {{ r.dateOfRequest | date : "shortDate" }}
+      </th>
+      <th scope="col">
+        {{ r.dateFrom | date : "shortDate" }}
+      </th>
+      <th scope="col">
+        {{ r.dateTo | date : "shortDate" }}
+      </th>
+      <td scope="col">{{ r.vehicle.plate }}</td>
+      <td scope="col">{{ r.vehicle.type }}</td>
+      <td scope="col">{{ r.status }}</td>
+      <td scope="col">{{ r.travelFrom }}</td>
+      <td scope="col">{{ r.travelTo }}</td>
+      <td scope="col">{{ r.totalKm }}</td>
+    </tr>
+  </tbody>
+  <p style="text-align: center" *ngIf="!requests.length">Žádný záznam.</p>
+</table>
+<table *ngIf="!isLoading" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Od</th>
+      <th scope="col">Do</th>
+      <th scope="col">SPZ</th>
+      <th scope="col">Typ</th>
+      <th scope="col">Status</th>
+      <th scope="col">Z</th>
+      <th scope="col">Do</th>
+      <th scope="col">Km</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of companyRequest">
       <th scope="col">{{ r.email }}</th>
       <th scope="col">
         {{ r.dateOfRequest | date : "shortDate" }}

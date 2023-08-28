@@ -33,7 +33,7 @@ export class RequestFormComponent {
   ) {}
   ngOnInit(): void {
     this.request.email = this.user.Email || '';
-    this.request.typeOfRequest = 'company';
+    this.request.typeOfRequest = 'Firemní';
     this.active.paramMap.subscribe((params: any) => {
       this.id = params.get('id?');
     });

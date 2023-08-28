@@ -10,6 +10,8 @@ export class FinanceOverviewComponent {
   isLoading = false;
   error = '';
   requests: Request[] = [];
+  privateRequest: Request[] = [];
+  companyRequest: Request[] = [];
   constructor(private requestService: RequestService) {}
 
   ngOnInit(): void {
@@ -20,11 +22,18 @@ export class FinanceOverviewComponent {
     this.requestService.getRequests().subscribe({
       next: (requests) =>
         (this.requests = requests.filter((r) => r.status === 'Uzavřeno')),
-      complete: () => (this.isLoading = false),
+      complete: () => {
+        this.isLoading = false;
+        this.privateRequest = this.filterRequests('Soukromá');
+        this.companyRequest = this.filterRequests('Firemní');
+      },
       error: (err) => {
         this.isLoading = false;
         this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
       },
     });
+  }
+  filterRequests(filter: string) {
+    return this.requests.filter((r) => r.typeOfRequest === filter);
   }
 }

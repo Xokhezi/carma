@@ -32,6 +32,7 @@
         <th scope="col">Datum</th>
         <th scope="col">Od</th>
         <th scope="col">Do</th>
+        <th scope="col">Cesta</th>
         <th scope="col">SPZ</th>
         <th scope="col">Typ</th>
         <th scope="col">Status</th>
@@ -53,6 +54,7 @@
         <th scope="col" (click)="openDialog(r)">
           {{ r.dateTo | date : "shortDate" }}
         </th>
+        <td scope="col" (click)="openDialog(r)">{{ r.typeOfRequest }}</td>
         <td scope="col" (click)="openDialog(r)">{{ r.vehicle.plate }}</td>
         <td scope="col" (click)="openDialog(r)">{{ r.vehicle.type }}</td>
         <td scope="col" (click)="openDialog(r)">{{ r.status }}</td>
