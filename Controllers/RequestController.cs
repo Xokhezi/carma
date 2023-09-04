@@ -27,11 +27,25 @@ namespace carma.Controllers
 
         }
         [HttpGet]
-        public async Task<IEnumerable<RequestResource>> GetRequests()
+        public async Task<IEnumerable<RequestResource>> GetRequests(string? datefrom = null, string? dateto = null)
         {
-            var requsts = await context.Requests.Include(v => v.Vehicle).ToListAsync();
-            return mapper.Map<IEnumerable<Request>, IEnumerable<RequestResource>>(requsts);
+            IQueryable<Request> query = context.Requests.Include(r => r.Vehicle);
+
+            if (!string.IsNullOrWhiteSpace(datefrom) && DateTime.TryParse(datefrom, out var fromDate))
+            {
+                query = query.Where(r => r.DateOfRequest >= fromDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateto) && DateTime.TryParse(dateto, out var toDate))
+            {
+                query = query.Where(r => r.DateOfRequest <= toDate);
+            }
+
+            var requests = await query.ToListAsync();
+
+            return mapper.Map<IEnumerable<Request>, IEnumerable<RequestResource>>(requests);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateRequest([FromBody] SaveRequestResource requestResource)
         {
