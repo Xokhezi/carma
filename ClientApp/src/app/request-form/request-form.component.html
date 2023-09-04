@@ -18,7 +18,7 @@
         </div>
       </div>
       <h1>Nová žádanka</h1>
-      <div class="favourite-section">
+      <div class="favourite-section" *ngIf="user.Email">
         <i
           [ngClass]="{
             active: isFavourite,
