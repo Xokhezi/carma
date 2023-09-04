@@ -9,6 +9,8 @@ import { Request, RequestService } from '../Services/request.service';
 export class FinanceOverviewComponent {
   isLoading = false;
   error = '';
+  dateFrom: any;
+  dateTo: any;
   requests: Request[] = [];
   privateRequest: Request[] = [];
   companyRequest: Request[] = [];
@@ -19,9 +21,12 @@ export class FinanceOverviewComponent {
     this.getRequests();
   }
   getRequests() {
-    this.requestService.getRequests().subscribe({
-      next: (requests) =>
-        (this.requests = requests.filter((r) => r.status === 'Uzavřeno')),
+    this.requests = [];
+    this.requestService.getRequests(this.dateFrom, this.dateTo).subscribe({
+      next: (requests) => {
+        console.log('Received requests:', requests);
+        this.requests = requests.filter((r) => r.status === 'Uzavřeno');
+      },
       complete: () => {
         this.isLoading = false;
         this.privateRequest = this.filterRequests('Soukromá');

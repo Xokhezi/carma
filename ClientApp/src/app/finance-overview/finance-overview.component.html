@@ -1,4 +1,7 @@
 <h3 *ngIf="isLoading">Načítám...</h3>
+<input type="date" [(ngModel)]="dateFrom" />
+<input type="date" [(ngModel)]="dateTo" />
+<button (click)="getRequests()">Refresh</button>
 <table *ngIf="!isLoading" class="table table-hover">
   <thead>
     <tr>

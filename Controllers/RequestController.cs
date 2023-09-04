@@ -27,16 +27,16 @@ namespace carma.Controllers
 
         }
         [HttpGet]
-        public async Task<IEnumerable<RequestResource>> GetRequests(string? datefrom = null, string? dateto = null)
+        public async Task<IEnumerable<RequestResource>> GetRequests(string? dateFrom = null, string? dateTo = null)
         {
             IQueryable<Request> query = context.Requests.Include(r => r.Vehicle);
 
-            if (!string.IsNullOrWhiteSpace(datefrom) && DateTime.TryParse(datefrom, out var fromDate))
+            if (!string.IsNullOrWhiteSpace(dateFrom) && DateTime.TryParse(dateFrom, out var fromDate))
             {
                 query = query.Where(r => r.DateOfRequest >= fromDate);
             }
 
-            if (!string.IsNullOrWhiteSpace(dateto) && DateTime.TryParse(dateto, out var toDate))
+            if (!string.IsNullOrWhiteSpace(dateTo) && DateTime.TryParse(dateTo, out var toDate))
             {
                 query = query.Where(r => r.DateOfRequest <= toDate);
             }

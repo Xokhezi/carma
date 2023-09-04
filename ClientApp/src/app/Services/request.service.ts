@@ -35,8 +35,10 @@ export interface SaveRequest {
 })
 export class RequestService {
   constructor(private apiClient: ApiClientService) {}
-  getRequests(): Observable<Request[]> {
-    return this.apiClient.getAll<Request[]>('request');
+  getRequests(dateFrom?: string, dateTo?: string): Observable<Request[]> {
+    return this.apiClient.getAll<Request[]>(
+      `request?dateFrom=${dateFrom}&dateTo=${dateTo}`
+    );
   }
   getSingleRequest(id: number) {
     return this.apiClient.getSingle<Request>('request' + '/' + id);
