@@ -44,7 +44,7 @@ export class LoginService {
   }
   validateUser() {
     const email = this.getcurrentUser()!.Email;
-    const appName = 'carma';
+    const appName = 'Carma';
     const url =
       'https://sw02660.global.hvwan.net/validator/api/accessvalidation?email=' +
       encodeURIComponent(email) +
