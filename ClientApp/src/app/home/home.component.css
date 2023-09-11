@@ -1,0 +1,39 @@
+.card {
+  position: relative;
+  width: 250px;
+  height: 300px;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: 0.5s all;
+  padding: 0;
+  filter: grayscale(100%);
+}
+.card h1 {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.card:hover {
+  transform: scale(1.05);
+  filter: grayscale(0%);
+}
+.card:hover h1 {
+  opacity: 1;
+}
+.row {
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.thumb {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

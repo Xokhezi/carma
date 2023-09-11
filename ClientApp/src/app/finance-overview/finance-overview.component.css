@@ -1,0 +1,17 @@
+.row .btn {
+  width: 120px;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 50px;
+  align-items: end;
+}
+.form-group {
+  width: 160px;
+}
+.btn {
+  height: 38px;
+}

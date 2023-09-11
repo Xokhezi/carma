@@ -36,52 +36,6 @@
               >
                 <a *ngIf="user" class="nav-link text-dark">{{ user.Email }}</a>
               </li>
-
-              <li
-                class="nav-item"
-                [routerLinkActive]="['link-active']"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-                <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-              </li>
-              <li
-                class="nav-item"
-                [routerLinkActive]="['link-active']"
-                *ngIf="loginService.isLoggedIn()"
-              >
-                <a
-                  class="nav-link text-dark"
-                  [routerLink]="['/requests-overview/0']"
-                  >Přehled</a
-                >
-              </li>
-              <li
-                class="nav-item"
-                [routerLinkActive]="['link-active']"
-                *ngIf="loginService.isLoggedIn()"
-              >
-                <a
-                  class="nav-link text-dark"
-                  [routerLink]="['/vehicles-overview']"
-                  >Vozidla</a
-                >
-              </li>
-              <li
-                class="nav-item"
-                [routerLinkActive]="['link-active']"
-                *ngIf="loginService.isLoggedIn()"
-              >
-                <a
-                  class="nav-link text-dark"
-                  [routerLink]="['/accounting-overview']"
-                  >Finance</a
-                >
-              </li>
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-dark" [routerLink]="['/request-form/0']"
-                  >Žádanka</a
-                >
-              </li>
             </ul>
             <button
               mat-button
@@ -91,7 +45,18 @@
               <mat-icon>group</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>Profil</button>
+              <button mat-menu-item [routerLink]="['/request-form/0']">
+                <strong>Žádanka</strong>
+              </button>
+              <button mat-menu-item [routerLink]="['/requests-overview/0']">
+                Přehled
+              </button>
+              <button mat-menu-item [routerLink]="['/vehicles-overview']">
+                Vozidla
+              </button>
+              <button mat-menu-item [routerLink]="['/accounting-overview']">
+                Finance
+              </button>
               <button mat-menu-item (click)="logout()">Odhlásit</button>
             </mat-menu>
           </div>
