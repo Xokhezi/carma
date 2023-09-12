@@ -64,7 +64,7 @@ namespace carma.Controllers
             var existingRequests = await context.Requests
       .Where(r =>
           r.VehicleId == requestResource.VehicleId &&
-         (r.Status == "Approved" || r.Status == "Out") &&
+         (r.Status == "Potvrzeno" || r.Status == "Vydáno") &&
         (
         (r.DateFrom <= requestResource.DateTo && r.DateTo >= requestResource.DateTo) ||
         (r.DateFrom <= requestResource.DateFrom && r.DateTo >= requestResource.DateFrom)

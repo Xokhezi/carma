@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { RequestService, SaveRequest } from '../Services/request.service';
-import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { LoginService, User } from '../Services/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Favourite, FavouritesService } from '../Services/favourites.service';
+import {
+  ApiClientService,
+  Favourite,
+  SaveRequest,
+  Vehicle,
+} from '../Services/api-client.service';
 
 @Component({
   selector: 'app-request-form',
@@ -25,9 +27,7 @@ export class RequestFormComponent {
 
   constructor(
     private active: ActivatedRoute,
-    private requestService: RequestService,
-    private vehicleService: VehicleService,
-    private favouriteService: FavouritesService,
+    private apiClient: ApiClientService,
     private router: Router,
     private loginService: LoginService
   ) {}
@@ -44,7 +44,7 @@ export class RequestFormComponent {
     this.request.status = 'Nový';
     this.request.totalKm = 0;
     this.request.departmentId = parseInt(this.user.DepartmentId);
-    this.requestService.createRequest(this.request).subscribe({
+    this.apiClient.create<SaveRequest>(this.request, 'request').subscribe({
       complete: () => {
         if (this.isFavourite) this.createFavourite();
         this.router.navigate(['/']);
@@ -65,34 +65,38 @@ export class RequestFormComponent {
     }
   }
   getVehicles() {
-    this.vehicleService.getVehicles(this.request.email).subscribe({
-      next: (response: Vehicle[]) => {
-        this.isLoading = true;
-        this.vehicles = response;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.error = err.error;
-      },
-    });
+    this.apiClient
+      .getAll<Vehicle[]>('vehicles?email=' + this.request.email)
+      .subscribe({
+        next: (response: Vehicle[]) => {
+          this.isLoading = true;
+          this.vehicles = response;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.error = err.error;
+        },
+      });
   }
   getFavourites() {
-    this.favouriteService.getFavourites(this.request.email).subscribe({
-      next: (response: Favourite[]) => {
-        this.isLoading = true;
-        this.favourites = response;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.error = err.error;
-      },
-    });
+    this.apiClient
+      .getAll<Favourite[]>('favourites?email=' + this.request.email)
+      .subscribe({
+        next: (response: Favourite[]) => {
+          this.isLoading = true;
+          this.favourites = response;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.error = err.error;
+        },
+      });
   }
   createFavourite() {
     const favouriteToCreate = {
@@ -107,12 +111,14 @@ export class RequestFormComponent {
       typeOfRequest: this.request.typeOfRequest,
     };
 
-    this.favouriteService.createFavourite(favouriteToCreate).subscribe({
-      error: (err) => {
-        console.log(err);
-        this.error = err.error;
-      },
-    });
+    this.apiClient
+      .create<Favourite>(favouriteToCreate, 'favourites')
+      .subscribe({
+        error: (err) => {
+          console.log(err);
+          this.error = err.error;
+        },
+      });
   }
   setFavourite() {
     this.isFavourite = !this.isFavourite;

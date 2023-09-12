@@ -5,6 +5,7 @@ import {
   RequestService,
   SaveRequest,
 } from '../Services/request.service';
+import { ApiClientService } from '../Services/api-client.service';
 
 @Component({
   selector: 'app-additional-form-request',
@@ -18,7 +19,7 @@ export class AdditionalFormRequestComponent {
   totalKm: number = this.data.totalKm;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Request,
-    private requestService: RequestService,
+    private apiClient: ApiClientService,
     private dialogRef: MatDialogRef<AdditionalFormRequestComponent>
   ) {}
   ngOnInit(): void {}
@@ -29,8 +30,8 @@ export class AdditionalFormRequestComponent {
       totalKm: this.totalKm,
       vehicleId: this.data.vehicle.id,
     };
-    this.requestService
-      .updateRequest(this.requestToSave, this.data.id)
+    this.apiClient
+      .update<SaveRequest>(this.requestToSave, 'request' + '/' + this.data.id)
       .subscribe({
         next: () => {},
         complete: () => {

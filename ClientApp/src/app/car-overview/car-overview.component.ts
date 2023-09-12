@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { VehicleDialogComponent } from '../vehicle-dialog/vehicle-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ApiClientService, Vehicle } from '../Services/api-client.service';
 
 @Component({
   selector: 'app-car-overview',
@@ -16,10 +16,7 @@ export class CarOverviewComponent {
   notificationStatus: any;
   notificationTimeout: any;
 
-  constructor(
-    private vehiclesService: VehicleService,
-    public dialog: MatDialog
-  ) {}
+  constructor(private apiClient: ApiClientService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -39,7 +36,7 @@ export class CarOverviewComponent {
     });
   }
   geVehicles() {
-    this.vehiclesService.getVehicles().subscribe({
+    this.apiClient.getAll<Vehicle[]>('vehicles?email=').subscribe({
       next: (vehicles) => (this.vehicles = vehicles),
       complete: () => (this.loading = false),
       error: (err) => {
@@ -49,7 +46,7 @@ export class CarOverviewComponent {
     });
   }
   deleteVehicle(vehicle: Vehicle) {
-    this.vehiclesService.deleteVehicle(vehicle.id).subscribe({
+    this.apiClient.delete('vehicles' + '/' + vehicle.id).subscribe({
       next: () => {},
       complete: () => {
         this.geVehicles();

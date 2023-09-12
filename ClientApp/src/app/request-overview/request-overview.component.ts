@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { User } from '@auth0/auth0-angular';
 import { LoginService } from '../Services/login.service';
-import {
-  Request,
-  RequestService,
-  SaveRequest,
-} from '../Services/request.service';
-import { Vehicle, VehicleService } from '../Services/vehicle.service';
+
 import { AdditionalFormRequestComponent } from './../additional-form-request/additional-form-request.component';
+import {
+  ApiClientService,
+  SaveRequest,
+  Request,
+  SaveVehicle,
+  Vehicle,
+} from '../Services/api-client.service';
 
 @Component({
   selector: 'app-request-overview',
@@ -27,11 +28,9 @@ export class RequestOverviewComponent {
   user = this.login.getcurrentUser() || null;
 
   constructor(
-    private requestService: RequestService,
-    private active: ActivatedRoute,
+    private apiClient: ApiClientService,
     private login: LoginService,
-    public dialog: MatDialog,
-    public vehicleService: VehicleService
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -72,34 +71,36 @@ export class RequestOverviewComponent {
       vehicleId: request.vehicle.id,
     };
     saveRequest.status = action;
-    this.requestService.updateRequest(saveRequest, request.id).subscribe({
-      next: (response: any) => {
-        this.getRequests();
-      },
-      error: (err) => {
-        this.error = err.error;
-        this.loading = false;
-      },
-      //pending aout parked
-      complete: () => {
-        this.loading = false;
-        let status = '';
-        if (action === 'Potvrzeno') {
-          status = 'Rezervováno';
-        } else if (action === 'Vydáno') {
-          status = 'Vydáno';
-        } else if (action === 'Uzavřeno') {
-          status = 'Zaparkováno';
-          request.vehicle.stateOfKm =
-            request.vehicle.stateOfKm + request.totalKm;
-        }
-        this.updateVehicle(request.vehicle, status);
-      },
-    });
+    this.apiClient
+      .update<SaveRequest>(saveRequest, 'request' + '/' + request.id)
+      .subscribe({
+        next: (response: any) => {
+          this.getRequests();
+        },
+        error: (err) => {
+          this.error = err.error;
+          this.loading = false;
+        },
+        //pending aout parked
+        complete: () => {
+          this.loading = false;
+          let status = '';
+          if (action === 'Potvrzeno') {
+            status = 'Rezervováno';
+          } else if (action === 'Vydáno') {
+            status = 'Vydáno';
+          } else if (action === 'Uzavřeno') {
+            status = 'Zaparkováno';
+            request.vehicle.stateOfKm =
+              request.vehicle.stateOfKm + request.totalKm;
+          }
+          this.updateVehicle(request.vehicle, status);
+        },
+      });
   }
   //get request and filter them ragarding logged user
   getRequests() {
-    this.requestService.getRequests().subscribe({
+    this.apiClient.getAll<Request[]>(`request?dateFrom=&dateTo=`).subscribe({
       next: (response: Request[]) => {
         this.requests = response;
         this.loading = true;
@@ -126,11 +127,13 @@ export class RequestOverviewComponent {
   }
   updateVehicle(vehicle: Vehicle, status: string) {
     const updatedVehicle = { ...vehicle, status: status };
-    this.vehicleService.updateVehicle(updatedVehicle, vehicle.id).subscribe({
-      next: (response: any) => {},
-      error: (err) => {
-        this.error = err.error;
-      },
-    });
+    this.apiClient
+      .update<SaveVehicle>(updatedVehicle, 'vehicles' + '/' + vehicle.id)
+      .subscribe({
+        next: (response: any) => {},
+        error: (err) => {
+          this.error = err.error;
+        },
+      });
   }
 }

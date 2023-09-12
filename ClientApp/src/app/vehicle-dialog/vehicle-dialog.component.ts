@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { Vehicle, VehicleService } from '../Services/vehicle.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  ApiClientService,
+  SaveVehicle,
+  Vehicle,
+} from '../Services/api-client.service';
 
 @Component({
   selector: 'app-vehicle-dialog',
@@ -10,7 +14,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class VehicleDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Vehicle,
-    public vehicleService: VehicleService,
+    private apiClient: ApiClientService,
     private dialogRef: MatDialogRef<VehicleDialogComponent>
   ) {}
   vehicle: Vehicle = this.data;
@@ -23,30 +27,32 @@ export class VehicleDialogComponent {
     const { id, ...vehicleWithoutId } = this.vehicle;
     console.log(id);
     if (id != 0 && id != null && id != undefined) {
-      this.vehicleService.updateVehicle(vehicleWithoutId, id).subscribe({
-        next: () => {
-          this.buttonLoading = true;
-          this.buttonText = 'Ukládám...';
-        },
-        complete: () => {
-          this.buttonLoading = false;
-          this.buttonText = 'Uložit';
-          this.updateSucces = true;
-          this.requestUpdated.emit(this.updateSucces);
-          this.dialogRef.close();
-        },
-        error: (err) => {
-          console.log(err.error);
-          this.buttonLoading = false;
-          this.buttonText = 'Uložit';
-          this.updateSucces = false;
-          this.requestUpdated.emit(this.updateSucces);
-          this.dialogRef.close();
-        },
-      });
+      this.apiClient
+        .update<SaveVehicle>(vehicleWithoutId, 'vehicles' + '/' + id)
+        .subscribe({
+          next: () => {
+            this.buttonLoading = true;
+            this.buttonText = 'Ukládám...';
+          },
+          complete: () => {
+            this.buttonLoading = false;
+            this.buttonText = 'Uložit';
+            this.updateSucces = true;
+            this.requestUpdated.emit(this.updateSucces);
+            this.dialogRef.close();
+          },
+          error: (err) => {
+            console.log(err.error);
+            this.buttonLoading = false;
+            this.buttonText = 'Uložit';
+            this.updateSucces = false;
+            this.requestUpdated.emit(this.updateSucces);
+            this.dialogRef.close();
+          },
+        });
     } else {
       console.log(this.vehicle);
-      this.vehicleService.createVehicle(this.vehicle).subscribe({
+      this.apiClient.create<SaveVehicle>(this.vehicle, 'vehicles').subscribe({
         next: () => {
           this.buttonLoading = true;
           this.buttonText = 'Ukládám...';

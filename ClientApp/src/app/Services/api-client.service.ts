@@ -1,7 +1,60 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginService } from './login.service';
-
+export interface Favourite {
+  id: number;
+  name: string;
+  from: string;
+  to: string;
+  distance: number;
+  userEmail: string;
+  description: string;
+  vehicleId: number;
+  typeOfRequest: string;
+}
+export interface Request {
+  id: number;
+  vehicle: Vehicle;
+  dateFrom: Date;
+  dateTo: Date;
+  dateOfRequest: Date;
+  totalKm: number;
+  travelFrom: string;
+  travelTo: string;
+  status: string;
+  email: string;
+  departmentId: number;
+  description: string;
+  typeOfRequest: string;
+}
+export interface SaveRequest {
+  vehicleId: number;
+  dateFrom: Date;
+  dateTo: Date;
+  totalKm: number;
+  travelFrom: string;
+  travelTo: string;
+  status: string;
+  email: string;
+  departmentId: number;
+  description: string;
+  typeOfRequest: string;
+}
+export interface Vehicle {
+  id: number;
+  plate: string;
+  type: string;
+  stateOfKm: number;
+  status: string;
+  owner: string;
+}
+export interface SaveVehicle {
+  plate: string;
+  type: string;
+  stateOfKm: number;
+  status: string;
+  owner: string;
+}
 @Injectable({
   providedIn: 'root',
 })

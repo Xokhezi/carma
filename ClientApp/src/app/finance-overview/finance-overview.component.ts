@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Request, RequestService } from '../Services/request.service';
+import { ApiClientService, Request } from '../Services/api-client.service';
 
 @Component({
   selector: 'app-finance-overview',
@@ -14,7 +14,7 @@ export class FinanceOverviewComponent {
   requests: Request[] = [];
   privateRequest: Request[] = [];
   companyRequest: Request[] = [];
-  constructor(private requestService: RequestService) {}
+  constructor(private apiClient: ApiClientService) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -22,21 +22,25 @@ export class FinanceOverviewComponent {
   }
   getRequests() {
     this.requests = [];
-    this.requestService.getRequests(this.dateFrom, this.dateTo).subscribe({
-      next: (requests) => {
-        console.log('Received requests:', requests);
-        this.requests = requests.filter((r) => r.status === 'Uzavřeno');
-      },
-      complete: () => {
-        this.isLoading = false;
-        this.privateRequest = this.filterRequests('Soukromá');
-        this.companyRequest = this.filterRequests('Firemní');
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
-      },
-    });
+    this.apiClient
+      .getAll<Request[]>(
+        `request?dateFrom=${this.dateFrom}&dateTo=${this.dateTo}`
+      )
+      .subscribe({
+        next: (requests) => {
+          console.log('Received requests:', requests);
+          this.requests = requests.filter((r) => r.status === 'Uzavřeno');
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.privateRequest = this.filterRequests('Soukromá');
+          this.companyRequest = this.filterRequests('Firemní');
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
+        },
+      });
   }
   filterRequests(filter: string) {
     return this.requests.filter((r) => r.typeOfRequest === filter);
