@@ -14,6 +14,7 @@ export class FinanceOverviewComponent {
   requests: Request[] = [];
   privateRequest: Request[] = [];
   companyRequest: Request[] = [];
+  departmentRecords: any[] = [];
   constructor(private apiClient: ApiClientService) {}
 
   ngOnInit(): void {
