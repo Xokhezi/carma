@@ -19,7 +19,12 @@ export class FinanceOverviewComponent {
 
   ngOnInit(): void {
     this.isLoading = true;
+    this.getData();
+  }
+  getData() {
+    this.isLoading = true;
     this.getRequests();
+    this.departmentsSummary();
   }
   getRequests() {
     this.requests = [];
