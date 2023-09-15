@@ -20,6 +20,7 @@ export class FinanceOverviewComponent {
   ngOnInit(): void {
     this.isLoading = true;
     this.getData();
+    this.getDepartment(17);
   }
   getData() {
     this.isLoading = true;
@@ -64,6 +65,26 @@ export class FinanceOverviewComponent {
         },
         complete: () => {
           this.isLoading = false;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
+        },
+      });
+  }
+  getDepartment(id: number) {
+    let departmentNumber = '';
+    this.apiClient
+      .getExternalSingle(
+        'https://sw02660.global.hvwan.net/validator/api/departments/' + id
+      )
+      .subscribe({
+        next: (department: any) => {
+          departmentNumber = department.number;
+        },
+        complete: () => {
+          console.log(departmentNumber);
+          return departmentNumber;
         },
         error: (err) => {
           this.isLoading = false;

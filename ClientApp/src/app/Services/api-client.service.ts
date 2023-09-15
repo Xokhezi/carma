@@ -68,6 +68,9 @@ export class ApiClientService {
   getSingle<T>(url: string) {
     return this.http.get(this.url + url, this.loginService.getValidation());
   }
+  getExternalSingle(url: string) {
+    return this.http.get(url, this.loginService.getValidation());
+  }
   delete(url: string) {
     return this.http.delete(this.url + url, this.loginService.getValidation());
   }
