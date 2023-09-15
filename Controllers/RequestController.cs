@@ -45,7 +45,34 @@ namespace carma.Controllers
 
             return mapper.Map<IEnumerable<Request>, IEnumerable<RequestResource>>(requests);
         }
+        [HttpGet("departmentSummary")]
+        public async Task<IEnumerable<DepartmentSummaryResource>> GetDepartmentSummary(string? dateFrom = null, string? dateTo = null)
+        {
+            IQueryable<Request> query = context.Requests.Include(r => r.Vehicle);
 
+            if (!string.IsNullOrWhiteSpace(dateFrom) && DateTime.TryParse(dateFrom, out var fromDate))
+            {
+                query = query.Where(r => r.DateFrom >= fromDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateTo) && DateTime.TryParse(dateTo, out var toDate))
+            {
+                query = query.Where(r => r.DateTo <= toDate);
+            }
+
+            var requests = await query.ToListAsync();
+
+            var departmentSummaries = requests
+                .GroupBy(r => r.DepartmentId)
+                .Select(group => new DepartmentSummaryResource
+                {
+                    departmentId = group.Key,
+                    totalKm = group.Sum(r => r.TotalKm)
+                })
+                .ToList();
+
+            return departmentSummaries;
+        }
         [HttpPost]
         public async Task<IActionResult> CreateRequest([FromBody] SaveRequestResource requestResource)
         {

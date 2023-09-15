@@ -46,4 +46,24 @@ export class FinanceOverviewComponent {
   filterRequests(filter: string) {
     return this.requests.filter((r) => r.typeOfRequest === filter);
   }
+  departmentsSummary() {
+    this.isLoading = true;
+    this.apiClient
+      .getAll<any[]>(
+        `request/departmentSummary?dateFrom=${this.dateFrom}&dateTo=${this.dateTo}`
+      )
+      .subscribe({
+        next: (departments) => {
+          console.log('Received departments:', departments);
+          this.departmentRecords = departments;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.error = 'Něco se pokazilo, zkuste to prosím znovu.';
+        },
+      });
+  }
 }

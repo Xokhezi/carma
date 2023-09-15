@@ -12,6 +12,35 @@
     Aktualizovat
   </button>
 </div>
+<h1 *ngIf="!isLoading">Oddělení:</h1>
+<table *ngIf="!isLoading" class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Středisko</th>
+      <th scope="col">Výkon</th>
+      <th scope="col">Střed př</th>
+      <th scope="col">Zakázka</th>
+      <th scope="col">Km</th>
+      <th scope="col">Mj</th>
+      <th scope="col">OsČ</th>
+      <th scope="col">Text</th>
+    </tr>
+  </thead>
+  <tbody>
+    <p *ngIf="!departmentRecords.length">Žádný záznam...</p>
+    <tr *ngFor="let r of departmentRecords">
+      <th scope="col">193150</th>
+      <th scope="col">KM</th>
+      <th scope="col">{{ r.departmentNumberTo }}</th>
+      <th scope="col">{{ r.order }}</th>
+      <td scope="col">{{ r.totalKm }}</td>
+      <td scope="col"></td>
+      <td scope="col"></td>
+      <td scope="col">pořízení</td>
+    </tr>
+  </tbody>
+</table>
+<hr />
 <h1 *ngIf="!isLoading">Soukromé jízdy:</h1>
 <table *ngIf="!isLoading" class="table table-hover">
   <thead>
@@ -91,34 +120,3 @@
   <p style="text-align: center" *ngIf="!requests.length">Žádný záznam.</p>
 </table>
 <hr />
-<h1 *ngIf="!isLoading">Oddělení:</h1>
-<table *ngIf="!isLoading" class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Středisko</th>
-      <th scope="col">Výkon</th>
-      <th scope="col">Střed př</th>
-      <th scope="col">Zakázka</th>
-      <th scope="col">Km</th>
-      <th scope="col">Mj</th>
-      <th scope="col">OsČ</th>
-      <th scope="col">Text</th>
-    </tr>
-  </thead>
-  <tbody>
-    <p *ngIf="!departmentRecords.length">Žádný záznam...</p>
-    <tr *ngFor="let r of departmentRecords">
-      <th scope="col">193150</th>
-      <th scope="col">KM</th>
-      <th scope="col">{{ r.departmentNumberTo }}</th>
-      <th scope="col">{{ r.order }}</th>
-      <td scope="col">{{ r.totalKm }}</td>
-      <td scope="col"></td>
-      <td scope="col"></td>
-      <td scope="col">pořízení</td>
-    </tr>
-  </tbody>
-  <p style="text-align: center" *ngIf="!departmentRecords.length">
-    Žádný záznam.
-  </p>
-</table>
