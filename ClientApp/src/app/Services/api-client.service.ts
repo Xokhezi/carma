@@ -59,7 +59,11 @@ export interface SaveVehicle {
   providedIn: 'root',
 })
 export class ApiClientService {
-  url = 'https://localhost:7018/api/';
+  //localurl for testing
+  // url = 'https://localhost:7189/api/';
+
+  //production url
+  url = '/carma/api/';
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
   getAll<T>(url: string) {
