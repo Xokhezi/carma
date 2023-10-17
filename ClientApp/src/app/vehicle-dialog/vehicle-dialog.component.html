@@ -48,6 +48,30 @@
     />
   </div>
   <div class="form-outline mb-3">
+    <label class="form-label" for="axigonCode">Axigon:</label>
+    <input
+      type="text"
+      id="axigonCode"
+      #axigonCode="ngModel"
+      required
+      name="axigonCode"
+      [(ngModel)]="vehicle.axigonCode"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
+    <label class="form-label" for="orlenCode">Orlen:</label>
+    <input
+      type="text"
+      id="orlenCode"
+      #orlenCode="ngModel"
+      required
+      name="orlenCode"
+      [(ngModel)]="vehicle.orlenCode"
+      class="form-control form-control-lg"
+    />
+  </div>
+  <div class="form-outline mb-3">
     <label class="form-label" for="plate">Status:</label>
     <select
       class="form-control"

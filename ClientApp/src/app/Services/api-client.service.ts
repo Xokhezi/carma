@@ -47,6 +47,8 @@ export interface Vehicle {
   stateOfKm: number;
   status: string;
   owner: string;
+  orlenCode: string;
+  axigonCode: string;
 }
 export interface SaveVehicle {
   plate: string;
@@ -54,6 +56,8 @@ export interface SaveVehicle {
   stateOfKm: number;
   status: string;
   owner: string;
+  orlenCode: string;
+  axigonCode: string;
 }
 @Injectable({
   providedIn: 'root',
