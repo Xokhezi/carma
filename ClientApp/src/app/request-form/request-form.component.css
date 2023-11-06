@@ -31,7 +31,7 @@ i {
   cursor: pointer;
 }
 .active {
-  color: rgb(214, 208, 32);
+  color: rgb(204, 200, 79);
 }
 .favourite-list {
   display: none;
