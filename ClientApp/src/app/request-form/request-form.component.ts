@@ -101,7 +101,7 @@ export class RequestFormComponent {
   getStatusofVehicle(id: number) {
     console.log('fired');
     const today = new Date().toDateString();
-    this.apiClient.getAll<any>('requests/getavaible/' + id).subscribe({
+    this.apiClient.getAll<any>('request/getavaible/' + id).subscribe({
       next: (response: any[]) => {
         console.log(response);
       },
