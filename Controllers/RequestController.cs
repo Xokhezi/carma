@@ -121,7 +121,61 @@ namespace carma.Controllers
             await context.SaveChangesAsync();
             return Ok(requestFromDb);
         }
+        [HttpGet("getavaible/{vehicleId}")]
+        public async Task<IActionResult> ReturnStatusDates(int vehicleId, string? dateFrom, string? dateTo)
+        {
+            if (dateFrom == null || dateTo == null)
+            {
+                dateFrom = DateTime.Now.ToString("yyyy-MM-dd");
+                dateTo = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd");
+            }
+            var dateFromParsed = DateTime.Parse(dateFrom);
+            var dateToParsed = DateTime.Parse(dateTo);
+            IQueryable<Request> query = context.Requests.Include(r => r.Vehicle);
+
+            if (!string.IsNullOrWhiteSpace(dateFrom) && DateTime.TryParse(dateFrom, out var fromDate))
+            {
+                query = query.Where(r => r.DateFrom >= fromDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(dateTo) && DateTime.TryParse(dateTo, out var toDate))
+            {
+                query = query.Where(r => r.DateTo <= toDate);
+            }
+
+            var requests = await query.ToListAsync();
+
+            var reservedDays = requests
+                .Where(r => r.VehicleId == vehicleId)
+                .SelectMany(r => GetReservedDaysWithStatus(r.DateFrom, r.DateTo, "booked"))
+                .ToList();
+
+            var allDays = GetReservedDaysWithStatus(dateFromParsed, dateToParsed, "free");
+            var allDaysList = new List<ReservationDay>();
+            foreach (var day in allDays)
+            {
+                if (reservedDays.Any(r => r.date == day.date))
+                {
+                    allDaysList.Add(new ReservationDay { date = day.date, status = "booked" });
+                }
+                else
+                {
+                    allDaysList.Add(new ReservationDay { date = day.date, status = "free" });
+                }
+            }
+            return Ok(allDaysList);
+        }
+
+        private IEnumerable<ReservationDay> GetReservedDaysWithStatus(DateTime startDate, DateTime endDate, string status)
+        {
+            List<ReservationDay> daysWithStatus = new List<ReservationDay>();
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                daysWithStatus.Add(new ReservationDay { date = date, status = status });
+            }
+
+            return daysWithStatus;
+        }
     }
-
-
 }

@@ -96,6 +96,7 @@
         >
         <select
           [disabled]="isLoading || !request.typeOfRequest"
+          (change)="getStatusofVehicle(request.vehicleId)"
           class="form-control form-control-lg"
           name="vehicleId"
           #vehicleId="ngModel"
@@ -107,6 +108,9 @@
             {{ v.plate }} {{ v.type }}
           </option>
         </select>
+      </div>
+      <div class="calendar">
+        <div class="day"></div>
       </div>
       <div class="form-outline mb-3">
         <label class="form-label" for="dateFrom">Od:</label>

@@ -98,6 +98,19 @@ export class RequestFormComponent {
         },
       });
   }
+  getStatusofVehicle(id: number) {
+    console.log('fired');
+    const today = new Date().toDateString();
+    this.apiClient.getAll<any>('requests/getavaible/' + id).subscribe({
+      next: (response: any[]) => {
+        console.log(response);
+      },
+      error: (err) => {
+        console.log(err);
+        this.error = err.error;
+      },
+    });
+  }
   createFavourite() {
     const favouriteToCreate = {
       id: 0,
