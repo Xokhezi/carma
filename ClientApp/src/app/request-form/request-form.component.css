@@ -70,13 +70,16 @@ i {
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-  max-width: 600px;
+  max-width: 400px;
 }
 .day {
   border-radius: 5px;
   background: gray;
   width: 20px;
   height: 20px;
+}
+.red {
+  background: red;
 }
 
 @keyframes slideIn {

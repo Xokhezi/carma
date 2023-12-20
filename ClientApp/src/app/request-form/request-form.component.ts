@@ -24,6 +24,7 @@ export class RequestFormComponent {
   request: SaveRequest = {} as SaveRequest;
   favourites: Favourite[] = [];
   isLoading = false;
+  daysStatus: any = [];
 
   constructor(
     private active: ActivatedRoute,
@@ -103,7 +104,8 @@ export class RequestFormComponent {
     const today = new Date().toDateString();
     this.apiClient.getAll<any>('request/getavaible/' + id).subscribe({
       next: (response: any[]) => {
-        console.log(response);
+        this.daysStatus = response;
+        console.log(this.daysStatus);
       },
       error: (err) => {
         console.log(err);
