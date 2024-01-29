@@ -74,12 +74,12 @@ i {
 }
 .day {
   border-radius: 5px;
-  background: gray;
+  background: green;
   width: 20px;
   height: 20px;
 }
 .red {
-  background: red;
+  background: gray;
 }
 
 @keyframes slideIn {
